@@ -1,13 +1,55 @@
 <template>
-  <router-view/>
+  <div class="router_view-wrapper">
+    <router-view />
+  </div>
 </template>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+
+    font-family: "Inter", sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+    
+  ::-webkit-scrollbar-track {
+    background: #0D0D0D;
+  }
+    
+  ::-webkit-scrollbar-thumb {
+    background: #252525;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #202020;
+  }
+
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+    background-color: rgba(0, 0, 0, 0.9);
+
+    .router_view-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      gap: 30px;
+
+      min-height: 100vh;
+
+      padding: 20px 100px;
+    }
   }
 </style>

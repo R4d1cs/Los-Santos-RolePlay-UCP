@@ -1,15 +1,9 @@
 <template>
   <div class="page_not_found-wrapper">
-    <IconComponent iconPath="Icons/maintenance_white" />
-
     <span>Az oldal jelenleg karbantartás alatt van!</span>
     <span>A fejlesztők dolgoznak a hibák, illetve a felmerülő problémák kijavításán.</span>
   </div>
 </template>
-
-<script setup>
-  import IconComponent from '@/Components/Icon'
-</script>
 
 <style lang="scss" scoped>
   .page_not_found-wrapper {
