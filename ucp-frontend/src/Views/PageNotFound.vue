@@ -7,10 +7,6 @@
 
 <style lang="scss" scoped>
   .page_not_found-wrapper {
-    :nth-child(1) {
-      margin-bottom: 50px;
-    }
-
     display: flex;
     flex-direction: column;
     align-items: center;
