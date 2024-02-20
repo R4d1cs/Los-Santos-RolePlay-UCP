@@ -7,6 +7,7 @@ import PageNotFoundView from '@/Views/PageNotFound'
 import NewsView from '@/Views/News'
 
 import LoginComponent from '@/Components/Login'
+import RegisterComponent from '@/Components/Register'
 
 const webPrefix = 'Los Santos RolePlay'
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
     path: '/login',
     component: LoginComponent,
     meta: { tabTitle: 'Bejelentkezés' }
+  },
+  {
+    path: '/register',
+    component: RegisterComponent,
+    meta: { tabTitle: 'Regisztráció' }
   },
   {
     path: '/:pathMatch(.*)*',
