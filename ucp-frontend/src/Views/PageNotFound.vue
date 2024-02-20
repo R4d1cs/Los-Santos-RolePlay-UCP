@@ -14,7 +14,7 @@
     gap: 3px;
 
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: white;
   }
 </style>

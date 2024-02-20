@@ -1,4 +1,5 @@
 <template>
+  <HeaderComponent />
   <div class="router_view-wrapper">
     <router-view />
   </div>
@@ -6,6 +7,7 @@
 </template>
 
 <script setup>
+  import HeaderComponent from '@/Components/Header.vue'
   import FooterComponent from '@/Components/Footer.vue'
 </script>
 
@@ -49,7 +51,6 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-
       gap: 20px;
 
       min-width: 100%;
