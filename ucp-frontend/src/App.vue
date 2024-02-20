@@ -2,7 +2,12 @@
   <div class="router_view-wrapper">
     <router-view />
   </div>
+  <FooterComponent />
 </template>
+
+<script setup>
+  import FooterComponent from '@/Components/Footer.vue'
+</script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -52,5 +57,19 @@
 
       padding: 20px 100px;
     }
+  }
+
+  /* Text Colors */
+  .tcolor-blue {
+    color: #1c50ec;
+  }
+
+  .tcolor-lightblue {
+    color: #0d74a9;
+  }
+
+  /* Text Formatting */
+  .text-bold {
+    font-weight: 600;
   }
 </style>
