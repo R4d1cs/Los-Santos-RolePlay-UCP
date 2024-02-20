@@ -1,7 +1,7 @@
 <template>
   <div class="footer-wrapper">
     <p>&copy; {{ getCurrentYear() }} LOS-SANTOS Kft. - Minden jog fenntartva!</p>
-    <p>Kapcsolatfelvétel: <span class="tcolor-blue text-bold">support@lsrp-game.com</span></p>
+    <p>Kapcsolatfelvétel: <span class="tcolor-blue tformat-lightbold">support@lsrp-game.com</span></p>
   </div>
 </template>
 

@@ -44,7 +44,7 @@
   }
 
   #app {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(10, 10, 10, 0.93);
 
     .router_view-wrapper {
       display: flex;
@@ -53,24 +53,54 @@
       align-items: center;
       gap: 20px;
 
-      min-width: 100%;
+      width: 100%;
       min-height: 100vh;
 
-      padding: 20px 100px;
+      padding: 20px;
     }
-  }
 
-  /* Text Colors */
-  .tcolor-blue {
-    color: #1c50ec;
-  }
+    hr {
+      width: 100%;
+      height: 2px;
 
-  .tcolor-lightblue {
-    color: #0d74a9;
-  }
+      margin-top: 10px;
+      margin-bottom: 10px;
 
-  /* Text Formatting */
-  .text-bold {
-    font-weight: 600;
+      background-color: rgb(255, 255, 255);
+    }
+
+    input {
+      padding: 10px;
+      color: black;
+      font-weight: 400;
+      font-size: 0.8rem;
+      
+      border-radius: 3px;
+
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Text Colors */
+    .tcolor-blue {
+      color: #1c50ec;
+    }
+
+    .tcolor-lightblue {
+      color: #0d74a9;
+    }
+
+    /* Text Formatting */
+    .tformat-bold {
+      font-weight: 800;
+    }
+
+    .tformat-lightbold {
+      font-weight: 600;
+    }
+    
+    /* Text Sizing */
+    .tsize-title {
+      font-size: 1rem;
+    }
   }
 </style>
