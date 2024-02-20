@@ -45,8 +45,9 @@
       justify-content: center;
       align-items: center;
 
-      gap: 30px;
+      gap: 20px;
 
+      min-width: 100%;
       min-height: 100vh;
 
       padding: 20px 100px;

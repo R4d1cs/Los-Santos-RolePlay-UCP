@@ -1,7 +1,7 @@
 <template>
   <div class="page_not_found-wrapper">
-    <span>Az oldal jelenleg karbantartás alatt van!</span>
-    <span>A fejlesztők dolgoznak a hibák, illetve a felmerülő problémák kijavításán.</span>
+    <p>Az oldal jelenleg karbantartás alatt van!</p>
+    <p>A fejlesztők dolgoznak a hibák, illetve a felmerülő problémák kijavításán.</p>
   </div>
 </template>
 
@@ -11,10 +11,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 3px;
 
     text-align: center;
-    font-size: 18px;
+    font-size: 1rem;
     color: white;
   }
 </style>
