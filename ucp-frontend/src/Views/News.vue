@@ -1,11 +1,14 @@
 <template>
-  <div class="news-wrapper">
+  <div class="anyNewsNotFound" v-if="newsDatas.length === 0">
+    <p>Jelenleg nincs egyetlen friss hír sem.</p>
+  </div>
+  <div class="news-wrapper" v-if="newsDatas.length > 0">
     <p class="tsize-title tformat-lightbold">Hírek</p>
     <div class="news-items">
-      <div class="news-item" v-for="{ newsTitle, newsDate, newsContext } in newsItems">
-        <div class="news-date">{{ newsDate }}</div>
-        <div class="news-title">{{ newsTitle }}</div>
-        <div class="news-context">{{ newsContext }}</div>
+      <div class="news-item" v-for="{ title, date, context } in newsDatas">
+        <div class="news-date">{{ date }}</div>
+        <div class="news-title">{{ title }}</div>
+        <div class="news-context">{{ context }}</div>
 	    </div>
     </div>
   </div>
@@ -37,16 +40,27 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import LoginComponent from '@/Components/Login'
+  import { useNewsStore } from '@/Stores/NewsStore.js'
 
-  const newsItems = ref([
-    { newsTitle: 'Los Santos Autós Verseny', newsDate: '2024. 01. 12. 05:10', newsContext: 'Gyere el és tegyed próbára a legjobb versenyzőket a városban.' },
-    { newsTitle: 'Los Santos Formula1 Verseny', newsDate: '2024. 01. 12. 15:10', newsContext: 'A város legnagyobb formula1-es versenye, ne hagyd ki, hogyha szeretnéd kipróbálni magad.' }
-  ])
+  const newsDatas = ref([])
+
+  onMounted(async () => {
+    newsDatas.value = await useNewsStore().getNews()
+  })
 </script>
 
 <style lang="scss" scoped>
+  .anyNewsNotFound {
+    margin-top: -40%;
+    width: 1100px;
+
+    text-align: center;
+    font-size: 0.8rem;
+    color: white;
+  }
+
   .news-wrapper {
     display: flex;
     flex-direction: column;

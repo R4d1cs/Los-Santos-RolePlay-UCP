@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
-import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
 
 // Views, Components Imports for vue-router
 import PageNotFoundView from '@/Views/PageNotFound'
@@ -13,6 +15,7 @@ const webPrefix = 'Los Santos RolePlay'
 const routes = [
   {
     path: '/news',
+    alias: ['/'],
     component: NewsView,
     meta: { tabTitle: 'Hírek' }
   },
@@ -35,6 +38,7 @@ const routes = [
 
 const Router = createRouter({ history: createWebHistory(), routes })
 const Application = createApp(App)
+const Pinia = createPinia()
 
 Router
 .beforeEach(( toPage, fromPage, nextFunc ) => {
@@ -44,4 +48,5 @@ Router
 
 Application
 .use(Router)
+.use(Pinia)
 .mount('#app')
