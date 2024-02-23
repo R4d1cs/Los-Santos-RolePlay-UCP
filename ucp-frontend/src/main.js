@@ -7,6 +7,7 @@ import App from './App.vue'
 // Views, Components Imports for vue-router
 import PageNotFoundView from '@/Views/PageNotFound'
 import NewsView from '@/Views/News'
+import DiscordView from '@/Views/Discord'
 
 import LoginComponent from '@/Components/Login'
 import RegisterComponent from '@/Components/Register'
@@ -28,6 +29,11 @@ const routes = [
     path: '/register',
     component: RegisterComponent,
     meta: { tabTitle: 'Regisztráció' }
+  },
+  {
+    path: '/discord',
+    component: DiscordView,
+    meta: { tabTitle: 'Discord Csatlakozás' }
   },
   {
     path: '/:pathMatch(.*)*',

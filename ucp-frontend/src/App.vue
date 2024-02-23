@@ -89,6 +89,14 @@
       color: #0d74a9;
     }
 
+    .tcolor-gray {
+      color: #454545;
+    }
+
+    .tcolor-lightwhite {
+      color: #d9d9d978;
+    }
+
     /* Text Formatting */
     .tformat-bold {
       font-weight: 800;

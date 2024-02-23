@@ -21,6 +21,15 @@ const mysqlPool = mysql.createPool({
   timezone        : 'UTC'
 })
 
+mysqlPool.getConnection((err, conn) => {
+  if (err) {
+    console.error(err)
+    return
+  }
+
+  console.log('MYSQL: Sikeres adatbázis csatlakozás!')
+})
+
 expressApp.get('/API/news', (req, res) => {
   mysqlPool.query('SELECT * FROM news', (err, results) => {
     if (err) {
@@ -56,5 +65,5 @@ expressApp.post('/API/registerUser', (req, res) => {
 })
 
 expressApp.listen(process.env.SERVER_PORT, () => {
-  console.log(`A backend szerver sikeresen elindult! http://localhost:${process.env.SERVER_PORT}`)
+  console.log(`API: A backend szerver sikeresen elindult! http://localhost:${process.env.SERVER_PORT}`)
 })

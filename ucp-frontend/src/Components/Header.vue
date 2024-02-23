@@ -16,7 +16,6 @@
   import { ref } from 'vue'
 
   const linkButtons = ref([
-    { buttonTitle: { name: 'Szabályzat' }, buttonPath: 'rules' },
     { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
     { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
     { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
