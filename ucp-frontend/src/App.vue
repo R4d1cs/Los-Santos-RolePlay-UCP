@@ -54,7 +54,7 @@
       gap: 20px;
 
       width: 100%;
-      min-height: 100vh;
+      min-height: 72.2vh;
 
       padding: 20px;
     }
@@ -80,7 +80,13 @@
       background-color: rgba(255, 255, 255, 0.9);
     }
 
-    /* Text Colors */
+    /* Lista típusok */
+    .list-pointed {
+      margin-left: 20px;
+      margin-right: 0px;
+    }
+
+    /* Szöveg színek */
     .tcolor-blue {
       color: #1c50ec;
     }
@@ -97,7 +103,7 @@
       color: #d9d9d978;
     }
 
-    /* Text Formatting */
+    /* Szöveg Formázás */
     .tformat-bold {
       font-weight: 800;
     }
@@ -106,7 +112,7 @@
       font-weight: 600;
     }
     
-    /* Text Sizing */
+    /* Szöveg méretezés */
     .tsize-title {
       font-size: 1rem;
     }

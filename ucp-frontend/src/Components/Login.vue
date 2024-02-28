@@ -1,5 +1,5 @@
 <template>
-  <div class="login-wrapper">
+  <div class="login-wrapper" v-if="!loggedUser">
     <p class="tsize-title tformat-lightbold">Bejelentkezés</p>
     <hr>
     <input type="text" placeholder="Felhasználónév">
@@ -13,6 +13,14 @@
     <input class="submitBtn" type="button" value="Bejelentkezés">
   </div>
 </template>
+
+<script setup>
+  import { ref } from 'vue'
+  import { useAccountStore } from '@/Stores/AccountStore.js'
+
+  const AccountStore = useAccountStore()
+  const loggedUser = AccountStore['loggedUser']
+</script>
 
 <style lang="scss" scoped>
   .login-wrapper {

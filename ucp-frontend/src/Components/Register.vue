@@ -18,14 +18,16 @@
   import { useRouter } from 'vue-router'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
-  const router = useRouter()
+  const AccountStore = useAccountStore()
+  const routerApp = useRouter()
 
+  // A változókat létrehozzuk, a későbbi értékek elérése érdekében.
   const username = ref('')
   const password = ref('')
   const confirmPassword = ref('')
   const email = ref('')
 
-  const submitRegistration = () => {
+  const submitRegistration = async () => {
     if (!username.value || !password.value || !confirmPassword.value || !email.value) {
       return alert('Töltsd ki az összes mezőt a regisztrációhoz!')
     }
@@ -34,8 +36,8 @@
       return alert('A jelszavak nem egyeznek meg!')
     }
 
-    useAccountStore().registerUser({ username: username.value, password: password.value, email: email.value }).then((serverResData) => {
-      if (serverResData[0] === 200) router.push('/login')
+    await AccountStore.registerUser({ username: username.value, password: password.value, email: email.value }).then((serverResData) => {
+      if (serverResData[0] === 200) routerApp.push('/login')
       
       alert(serverResData[1])
     })

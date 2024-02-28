@@ -14,13 +14,25 @@
 
 <script setup>
   import { ref } from 'vue'
+  import { useAccountStore } from '@/Stores/AccountStore.js'
 
-  const linkButtons = ref([
-    { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
-    { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
-    { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
-    { buttonTitle: { name: 'Bejelentkezés' }, buttonPath: 'login' }
-  ])
+  const AccountStore = useAccountStore()
+  const linkButtons = ref([])
+
+  if (AccountStore['loggedUser']) {
+    linkButtons.value = [
+      { buttonTitle: { name: 'Szabályzat' }, buttonPath: 'rules' },
+      { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
+      { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
+      { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
+      { buttonTitle: { name: `${ AccountStore['loggedUser']['nickname'] } (5:00)` }, buttonPath: '' }
+    ]
+  } else {
+    linkButtons.value = [
+      { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
+      { buttonTitle: { name: 'Bejelentkezés' }, buttonPath: 'login' }
+    ]
+  }
 </script>
 
 <style lang="scss" scoped>

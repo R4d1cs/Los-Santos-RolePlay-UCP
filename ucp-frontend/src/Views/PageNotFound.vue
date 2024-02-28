@@ -7,12 +7,6 @@
 
 <style lang="scss" scoped>
   .page_not_found-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-
     text-align: center;
     font-size: 0.8rem;
     color: white;

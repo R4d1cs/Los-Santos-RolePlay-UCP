@@ -3,7 +3,7 @@
     <p>Jelenleg nincs egyetlen friss hír sem.</p>
   </div>
   <div class="news-wrapper" v-if="newsDatas.length > 0">
-    <p class="tsize-title tformat-lightbold">Hírek</p>
+    <h3 class="tsize-title">Hírek</h3>
     <div class="news-items">
       <div class="news-item" v-for="{ title, date, context } in newsDatas">
         <div class="news-date">{{ date }}</div>
@@ -44,10 +44,17 @@
   import LoginComponent from '@/Components/Login'
   import { useNewsStore } from '@/Stores/NewsStore.js'
 
+  const NewsStore = useNewsStore()
   const newsDatas = ref([])
 
   onMounted(async () => {
-    newsDatas.value = await useNewsStore().getNews()
+    await NewsStore.getNews().then((data) => {
+      if (data === undefined) {
+        return
+      }
+
+      newsDatas.value = data
+    })
   })
 </script>
 
