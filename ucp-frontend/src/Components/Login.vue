@@ -1,5 +1,5 @@
 <template>
-  <div class="login-wrapper" v-if="!loggedUser">
+  <div class="login-wrapper" v-if="!AccountStore['loggedUser']">
     <p class="tsize-title tformat-lightbold">Bejelentkezés</p>
     <hr>
     <input type="text" placeholder="Felhasználónév">
@@ -19,7 +19,6 @@
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
   const AccountStore = useAccountStore()
-  const loggedUser = AccountStore['loggedUser']
 </script>
 
 <style lang="scss" scoped>

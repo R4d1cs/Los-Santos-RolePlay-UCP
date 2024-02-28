@@ -2,6 +2,8 @@
   <div class="header-wrapper">
     <router-link to="news" class="server_logo-wrapper" />
 
+    <hr class="header-line" v-if="AccountStore['loggedUser']">
+
     <ul class="header-links">
       <router-link v-for="{ buttonTitle, buttonPath } in linkButtons" :to="buttonPath">
         <li :class="`link-item ${ buttonTitle['color'] || '' }`">
@@ -80,6 +82,16 @@
           font-size: 0.8rem;
         }
       }
+    }
+
+    .header-line {
+      margin: 0 !important; 
+
+      height: 3px !important; 
+
+      background-color: rgb(255, 192, 120) !important;
+
+      opacity: 0.8;
     }
   }
 </style>
