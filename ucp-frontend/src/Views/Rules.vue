@@ -1,7 +1,6 @@
 <template>
   <div class="rules-wrapper" v-if="AccountStore.getLoggedUser">
     <h3 class="tsize-title">Szabályzatok</h3>
-    <br>
     <details>
       <summary>Szerver szabályzat leírása</summary>
       <hr>
@@ -74,11 +73,11 @@
         </ul>
       </div>
     </details>
-    <details v-if="AccountStore['loggedUser']['role'] == 'admin'">
+    <details v-if="AccountStore.getLoggedUser['role'] == 'admin'">
       <summary>Admin szabályzat leírása</summary>
       <hr>
       <div class="list">
-        <h5>1. Rablásra vonatkozó szabályzat:</h5>
+        <h5>1. Rablásra vonatkozó szabályzat: (Ez még nem hivatalos adatok!)</h5>
         <ul class="list-pointed">
           <li>Tilos a káromkodás.</li>
           <li>Tilos pornográf tartalmat megosztani vagy profilképként használni.</li>
