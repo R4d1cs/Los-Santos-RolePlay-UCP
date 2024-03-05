@@ -24,9 +24,12 @@
   .discord_connecting-wrapper {
     display: flex;
     flex-direction: column;
+    align-self: start;
     gap: 5px;
 
-    width: 900px;
+    margin: 10% 5%;
+
+    width: 1200px;
 
     font-size: 0.8rem;
     color: white;

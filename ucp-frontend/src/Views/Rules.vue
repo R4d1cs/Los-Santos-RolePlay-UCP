@@ -6,7 +6,7 @@
       <summary>Szerver szabályzat leírása</summary>
       <hr>
       <div class="list">
-        <h4>1. Alapfogalmak:</h4>
+        <h5>1. Alapfogalmak:</h5>
         <ul class="list-pointed">
           <li>RP (RolePlay): Szerepjáték.</li>
           <li>IRL (InRealLife): A való életben.</li>
@@ -27,7 +27,7 @@
         </ul>
       </div>
       <div class="list">
-        <h4>2. Általános szabályzat:</h4>
+        <h5>2. Általános szabályzat:</h5>
         <ul class="list-pointed">
           <li>Az öngyilkos RP-t csak az Adminok engedélyével lehet megtenni.</li>
           <li>Tilos a bugokat kihasználni.(Amennyiben észlelsz egy bugot rögtön jelezd adminnak vagy a Tulajok egyikének)</li>
@@ -53,11 +53,11 @@
         </ul>
       </div>
     </details>
-    <details v-if="AccountStore['loggedUser']['role'] != 'user'">
+    <details v-if="AccountStore['loggedUser']['role'] == 'admin'">
       <summary>Admin szabályzat leírása</summary>
       <hr>
       <div class="list">
-        <h4>1. Rablásra vonatkozó szabályzat:</h4>
+        <h5>1. Rablásra vonatkozó szabályzat:</h5>
         <ul class="list-pointed">
           <li>Tilos a káromkodás.</li>
           <li>Tilos pornográf tartalmat megosztani vagy profilképként használni.</li>
@@ -88,7 +88,9 @@
 
     align-self: flex-start;
 
-    width: 1100px;
+    margin: 0 5%;
+
+    width: 1200px;
 
     color: white;
 
@@ -99,6 +101,10 @@
 
       border-radius: 5px;
       background-color: rgba(0, 0, 0, 0.2);
+
+      summary {
+        font-size: 0.9rem;
+      }
 
       .list {
         margin-bottom: 20px;

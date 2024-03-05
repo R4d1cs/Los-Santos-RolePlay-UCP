@@ -30,8 +30,10 @@ mysqlPool.getConnection((err, conn) => {
   console.log('MYSQL: Sikeres adatbázis csatlakozás!')
 })
 
-expressApp.get('/API/news', (req, res) => {
-  mysqlPool.query('SELECT * FROM news', (err, results) => {
+expressApp.get('/API/:table', (req, res) => {
+  const selectedTable = req.params.table
+
+  mysqlPool.query(`SELECT * FROM ${ selectedTable }`, (err, results) => {
     if (err) {
       return res.status(500).send(err.message)
     }

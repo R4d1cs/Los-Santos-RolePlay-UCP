@@ -22,8 +22,17 @@ export const useAccountStore = defineStore('AccountStore', () => {
     }
   }
 
+  const getUserGroupName = (group) => {
+    switch(group) {
+      case 'user': { return 'Felhasználó'; break; }
+      case 'aseged': { return 'Adminsegéd'; break; }
+      case 'admin': { return 'Admin'; break; }
+    }
+  } 
+
   return {
     loggedUser,
-    registerUser
+    registerUser,
+    getUserGroupName
   }
 })

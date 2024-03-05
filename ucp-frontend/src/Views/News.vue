@@ -61,7 +61,7 @@
 <style lang="scss" scoped>
   .anyNewsNotFound {
     margin-top: -40%;
-    width: 1100px;
+    width: 1200px;
 
     text-align: center;
     font-size: 0.8rem;
@@ -74,7 +74,7 @@
 
     align-self: flex-start;
 
-    width: 1100px;
+    width: 850px;
 
     color: white;
 
@@ -100,7 +100,7 @@
 
         .news-date {
           color: black;
-          font-size: 0.8rem;
+          font-size: 0.6rem;
           font-weight: 500;
 
           padding: 3px;
@@ -111,13 +111,13 @@
 
         .news-title {
           margin-top: 15px;
-          font-size: 1.2rem;
+          font-size: 0.9rem;
         }
 
         .news-context {
           margin-top: 30px;
 
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           text-shadow: 1px 2px #000000;
         }
       }
@@ -150,13 +150,13 @@
         display: flex;
         gap: 10px;
 
-        font-size: 18px;
+        font-size: 0.9rem;
       }
 
       .cards_context {
         margin-top: 25px;
 
-        font-size: 15px;
+        font-size: 0.8rem;
         text-shadow: 1px 2px #000000;
 
         padding: 0px 20px;
