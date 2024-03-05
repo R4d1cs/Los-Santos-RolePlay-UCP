@@ -5,7 +5,7 @@
     <input type="text" placeholder="Felhasználónév">
     <input type="password" placeholder="Jelszó">
 
-    <div class="linkButtons" v-if="$route.path == '/login'"> <!-- Ide egy hibát dob viszont müködik, ugyhogy ezt még meg kell nézni. -->
+    <div class="linkButtons" v-if="$route.path == '/login'">
       <router-link to="register" class="registerBtn tcolor-blue tformat-lightbold">Regisztrálni szeretnél? </router-link>
       <router-link to="forgotdata" class="forgotdataBtn tcolor-blue tformat-lightbold">Elfelejtett adatok?</router-link>
     </div>
@@ -15,10 +15,30 @@
 </template>
 
 <script setup>
+  // Modules Imports
   import { ref } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
+  // Declarations
   const AccountStore = useAccountStore()
+  const routerApp = useRouter()
+  
+  const username = ref('')
+  const password = ref('')
+
+  // Functions
+  const submitLogin = async () => {
+    if (!username.value || !password.value) {
+      return alert('Töltsd ki az összes mezőt a bejelentkezéshez!')
+    }
+
+    await AccountStore.loginUser({ username: username.value, password: password.value }).then((serverResData) => {
+      if (serverResData[0] === 200) routerApp.push('/news')
+      
+      alert(serverResData[1])
+    })
+  }
 </script>
 
 <style lang="scss" scoped>

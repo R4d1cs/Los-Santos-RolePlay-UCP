@@ -17,9 +17,6 @@
   </div>
 </template>
 
-<script setup>
-</script>
-
 <style lang="scss" scoped>
   .discord_connecting-wrapper {
     display: flex;

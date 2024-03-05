@@ -15,16 +15,15 @@
 </template>
 
 <script setup>
+  // Modules Imports
   import { ref } from 'vue'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
+  // Declarations
   const AccountStore = useAccountStore()
   const linkButtons = ref([])
 
-  AccountStore['loggedUser'] = {}
-  AccountStore['loggedUser']['role'] = 'user'
-  AccountStore['loggedUser']['username'] = 'RadicsAdam'
-  
+  // Check what should contain linkButtonts
   if (AccountStore['loggedUser']) {
     if (AccountStore['loggedUser']['role'] != 'user') {
       linkButtons.value = [

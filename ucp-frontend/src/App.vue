@@ -1,12 +1,18 @@
 <template>
+  <!-- Header Component on top of screen -->
   <HeaderComponent />
+
+  <!-- Router view for specified routes -->
   <div class="router_view-wrapper">
     <router-view />
   </div>
+
+  <!-- Footer Component on bottom of screen -->
   <FooterComponent />
 </template>
 
 <script setup>
+  // Modules Imports
   import HeaderComponent from '@/Components/Header.vue'
   import FooterComponent from '@/Components/Footer.vue'
 </script>

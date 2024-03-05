@@ -8,7 +8,7 @@
       <div class="news-item" v-for="{ title, date, context } in newsDatas">
         <div class="news-date">{{ date }}</div>
         <div class="news-title">{{ title }}</div>
-        <div class="news-context">{{ context }}</div>
+        <div class="news-context" v-html="context"></div>
 	    </div>
     </div>
   </div>
@@ -40,13 +40,16 @@
 </template>
 
 <script setup>
+  // Modules Imports
   import { ref, onMounted } from 'vue'
   import LoginComponent from '@/Components/Login'
   import { useNewsStore } from '@/Stores/NewsStore.js'
 
+  // Declarations
   const NewsStore = useNewsStore()
   const newsDatas = ref([])
 
+  // Functions
   onMounted(async () => {
     await NewsStore.getNews().then((data) => {
       if (data === undefined) {

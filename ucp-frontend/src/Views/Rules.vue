@@ -76,8 +76,10 @@
 </template>
 
 <script setup>
+  // Modules Imports
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
+  // Declarations
   const AccountStore = useAccountStore()
 </script>
 

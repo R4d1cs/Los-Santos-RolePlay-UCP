@@ -12,6 +12,7 @@ expressApp.use(express.urlencoded({extended: true}))
 expressApp.use(cors())
 expressApp.use(express.json())
 
+// MYSQL Pool create with connection attributes
 const mysqlPool = mysql.createPool({
   connectionLimit : 10,
   host            : process.env.DBHOST,
@@ -30,6 +31,7 @@ mysqlPool.getConnection((err, conn) => {
   console.log('MYSQL: Sikeres adatbázis csatlakozás!')
 })
 
+// GET Endpoints
 expressApp.get('/API/:table', (req, res) => {
   const selectedTable = req.params.table
 
@@ -42,10 +44,11 @@ expressApp.get('/API/:table', (req, res) => {
   })
 })
 
+// POST Endpoints
 expressApp.post('/API/registerUser', (req, res) => {
   const requestData = req.body
 
-  mysqlPool.query(`SELECT username FROM accounts WHERE username = '${ requestData.username }'`, async (err, results) => {
+  mysqlPool.query(`SELECT username AND FROM accounts WHERE username = '${ requestData.username }'`, async (err, results) => {
     if (err) {
       return res.send([500, err.message])
     }
@@ -66,6 +69,7 @@ expressApp.post('/API/registerUser', (req, res) => {
   })
 })
 
+// Backend listening on a specify port
 expressApp.listen(process.env.SERVER_PORT, () => {
   console.log(`API: A backend szerver sikeresen elindult! http://localhost:${process.env.SERVER_PORT}`)
 })

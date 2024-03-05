@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 const serverURL = 'http://localhost:3000/API'
 
 export const useNewsStore = defineStore('NewsStore', () => {
+  // Functions
   const getNews = async () => {
     try {
       const responseData = await fetch(`${ serverURL }/news`, {
@@ -18,6 +19,7 @@ export const useNewsStore = defineStore('NewsStore', () => {
     }
   }
 
+  // Exports what we want to access in the future
   return {
     getNews
   }

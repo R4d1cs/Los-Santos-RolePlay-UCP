@@ -1,3 +1,4 @@
+// Default vue imports
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia } from 'pinia'
@@ -13,7 +14,10 @@ import DiscordView from '@/Views/Discord'
 import LoginComponent from '@/Components/Login'
 import RegisterComponent from '@/Components/Register'
 
+// Variables
 const webPrefix = 'Los Santos RolePlay'
+
+// URL routes
 const routes = [
   {
     path: '/news',
@@ -48,6 +52,7 @@ const routes = [
   }
 ]
 
+// Declarations
 const Router = createRouter({ history: createWebHistory(), routes })
 const Application = createApp(App)
 const Pinia = createPinia()

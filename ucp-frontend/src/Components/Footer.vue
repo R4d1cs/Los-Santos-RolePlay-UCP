@@ -6,6 +6,7 @@
 </template>
 
 <script setup>
+  // Get the current year in footer for copyright text
   const getCurrentYear = function () {
     return new Date().getFullYear()
   }

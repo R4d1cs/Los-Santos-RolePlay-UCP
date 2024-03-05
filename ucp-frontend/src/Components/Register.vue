@@ -14,19 +14,21 @@
 </template>
 
 <script setup>
+  // Modules Imports
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
+  // Declarations
   const AccountStore = useAccountStore()
   const routerApp = useRouter()
-
-  // A változókat létrehozzuk, a későbbi értékek elérése érdekében.
+  
   const username = ref('')
   const password = ref('')
   const confirmPassword = ref('')
   const email = ref('')
 
+  // Functions
   const submitRegistration = async () => {
     if (!username.value || !password.value || !confirmPassword.value || !email.value) {
       return alert('Töltsd ki az összes mezőt a regisztrációhoz!')
