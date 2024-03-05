@@ -4,6 +4,7 @@ const cors = require('cors')
 const mysql = require('mysql')
 const dotEnv = require('dotenv').config()
 const argon2 = require('argon2')
+const jwt = require('jsonwebtoken')
 
 // Modules Declarations
 const expressApp = express()
@@ -32,10 +33,8 @@ mysqlPool.getConnection((err, conn) => {
 })
 
 // GET Endpoints
-expressApp.get('/API/:table', (req, res) => {
-  const selectedTable = req.params.table
-
-  mysqlPool.query(`SELECT * FROM ${ selectedTable }`, (err, results) => {
+expressApp.get('/API/news', (req, res) => {
+  mysqlPool.query('SELECT * FROM news', (err, results) => {
     if (err) {
       return res.status(500).send(err.message)
     }
@@ -45,6 +44,38 @@ expressApp.get('/API/:table', (req, res) => {
 })
 
 // POST Endpoints
+expressApp.post('/API/loginUser', (req, res) => {
+  const requestData = req.body
+
+  mysqlPool.query(`SELECT * FROM accounts WHERE username = '${ requestData.username }'`, async (err, results) => {
+    if (err) {
+      return res.send([500, err.message])
+    }
+
+    if (results == 0) {
+      return res.send([401, 'Ilyen felhasználó nincsen a rendszerben!'])
+    }
+
+    const verifyHashedPassword = await argon2.verify(results[0].password, requestData.password)
+
+    if (!verifyHashedPassword) {
+      return res.send([401, 'Helytelen jelszót adtál meg!'])
+    }
+
+    const userObject = {
+      accID: results[0].accountID,
+      username: results[0].username,
+      email: results[0].email,
+      role: results[0].role
+    }
+
+    const JWT_TOKEN = jwt.sign(userObject, process.env.JWT_KEY)
+    userObject['accessToken'] = JWT_TOKEN
+
+    res.send([200, 'Sikeres bejelentkezés!', userObject])
+  })
+})
+
 expressApp.post('/API/registerUser', (req, res) => {
   const requestData = req.body
 

@@ -42,6 +42,11 @@
       if (serverResData[0] === 200) routerApp.push('/login')
       
       alert(serverResData[1])
+
+      username.value = ''
+      password.value = ''
+      confirmPassword.value = ''
+      email.value = ''
     })
   }
 </script>

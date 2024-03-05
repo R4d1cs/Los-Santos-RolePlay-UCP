@@ -2,14 +2,29 @@
   <div class="header-wrapper">
     <router-link to="news" class="server_logo-wrapper" />
 
-    <hr class="header-line" v-if="AccountStore['loggedUser']">
+    <hr class="header-line" v-if="AccountStore.getLoggedUser">
 
     <ul class="header-links">
-      <router-link v-for="{ buttonTitle, buttonPath } in linkButtons" :to="buttonPath">
-        <li :class="`link-item ${ buttonTitle['color'] || '' }`">
-          <p>{{ buttonTitle['name'] }}</p>
-        </li>
+      <router-link to="rules" v-if="AccountStore.getLoggedUser">
+        <li class="link-item">Szabályzatok</li>
       </router-link>
+      <router-link to="premiumshop" v-if="AccountStore.getLoggedUser">
+        <li class="link-item tcolor-lightblue">Prémium Bolt</li>
+      </router-link>
+      <router-link to="tutorial" v-if="AccountStore.getLoggedUser">
+        <li class="link-item">Segédlet anyagok</li>
+      </router-link>
+      <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser['role'] == 'admin'">
+        <li class="link-item">Felhasználók kezelése</li>
+      </router-link>
+      <router-link to="discord">
+        <li class="link-item tcolor-blue">Csatlakozás</li>
+      </router-link>
+      <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'">
+        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser['username'] + ' (5:00)' : 'Bejelentkezés' }}</li>
+      </router-link>
+
+      <h6 v-if="AccountStore.getLoggedUser" @click="signOut">-></h6>
     </ul>
   </div>
 </template>
@@ -21,33 +36,10 @@
 
   // Declarations
   const AccountStore = useAccountStore()
-  const linkButtons = ref([])
 
-  // Check what should contain linkButtonts
-  if (AccountStore['loggedUser']) {
-    if (AccountStore['loggedUser']['role'] != 'user') {
-      linkButtons.value = [
-        { buttonTitle: { name: 'Szabályzatok' }, buttonPath: 'rules' },
-        { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
-        { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
-        { buttonTitle: { name: 'Felhasználók kezelése' }, buttonPath: 'adminpanel' },
-        { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
-        { buttonTitle: { name: `${ AccountStore['loggedUser']['username'] } (5:00)` }, buttonPath: '' }
-      ]
-    } else {
-      linkButtons.value = [
-        { buttonTitle: { name: 'Szabályzatok' }, buttonPath: 'rules' },
-        { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
-        { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
-        { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
-        { buttonTitle: { name: `${ AccountStore['loggedUser']['username'] } (5:00)` }, buttonPath: '' }
-      ]
-    }
-  } else {
-    linkButtons.value = [
-      { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
-      { buttonTitle: { name: 'Bejelentkezés' }, buttonPath: 'login' }
-    ]
+  // Functions
+  const signOut = () => {
+    AccountStore.logoutUser()
   }
 </script>
 
@@ -78,11 +70,27 @@
     .header-links {
       display: flex;
       flex-direction: row;
+      align-items: center;
       gap: 15px;
 
       position: absolute;
       right: 100px;
       top: 15px;
+
+      h6 {
+        margin-left: -7px;
+
+        font-size: 0.6rem !important;
+        color: rgb(255, 192, 120);
+        
+        border: 1.5px solid rgb(255, 192, 120);
+        border-radius: 3px;
+
+        padding: 0;
+        padding-left: 2px;
+
+        opacity: 1;
+      }
 
       a {
         color: white;

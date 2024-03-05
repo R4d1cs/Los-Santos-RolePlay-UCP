@@ -1,16 +1,16 @@
 <template>
-  <div class="login-wrapper" v-if="!AccountStore['loggedUser']">
+  <div class="login-wrapper" v-if="!AccountStore.getLoggedUser">
     <p class="tsize-title tformat-lightbold">Bejelentkezés</p>
     <hr>
-    <input type="text" placeholder="Felhasználónév">
-    <input type="password" placeholder="Jelszó">
+    <input type="text" placeholder="Felhasználónév" v-model="username">
+    <input type="password" placeholder="Jelszó" v-model="password">
 
     <div class="linkButtons" v-if="$route.path == '/login'">
       <router-link to="register" class="registerBtn tcolor-blue tformat-lightbold">Regisztrálni szeretnél? </router-link>
       <router-link to="forgotdata" class="forgotdataBtn tcolor-blue tformat-lightbold">Elfelejtett adatok?</router-link>
     </div>
 
-    <input class="submitBtn" type="button" value="Bejelentkezés">
+    <input class="submitBtn" type="button" value="Bejelentkezés" @click="submitLogin">
   </div>
 </template>
 
@@ -34,9 +34,14 @@
     }
 
     await AccountStore.loginUser({ username: username.value, password: password.value }).then((serverResData) => {
-      if (serverResData[0] === 200) routerApp.push('/news')
-      
+      if (serverResData[0] !== 200) return alert(serverResData[1])
+
+      AccountStore.setLoggedUser(serverResData[2])
+      routerApp.push('/news')
       alert(serverResData[1])
+
+      username.value = ''
+      password.value = ''
     })
   }
 </script>

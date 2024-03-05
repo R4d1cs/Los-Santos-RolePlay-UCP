@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 // Views, Components Imports for vue-router
 import PageNotFoundView from '@/Views/PageNotFound'
@@ -56,6 +57,9 @@ const routes = [
 const Router = createRouter({ history: createWebHistory(), routes })
 const Application = createApp(App)
 const Pinia = createPinia()
+
+Pinia
+.use(piniaPluginPersistedstate)
 
 Router
 .beforeEach(( toPage, fromPage, nextFunc ) => {
