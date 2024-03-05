@@ -90,16 +90,16 @@
       h6 {
         margin-left: -7px;
 
-        font-size: 0.6rem !important;
-        color: rgb(255, 192, 120);
+        font-size: 0.7rem !important;
+        color: white;
         
-        border: 1.5px solid rgb(255, 192, 120);
+        border: 1.5px solid #ffc078b1;
         border-radius: 3px;
 
         padding: 0;
         padding-left: 2px;
 
-        opacity: 1;
+        background-color: rgb(255, 192, 120);
       }
 
       a {

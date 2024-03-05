@@ -39,8 +39,9 @@
     }
 
     await AccountStore.registerUser({ username: username.value, password: password.value, email: email.value }).then((serverResData) => {
-      if (serverResData[0] === 200) routerApp.push('/login')
+      if (serverResData[0] !== 200) return alert(serverResData[1])
       
+      routerApp.push('/login')
       alert(serverResData[1])
 
       username.value = ''
