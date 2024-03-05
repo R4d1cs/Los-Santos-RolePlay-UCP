@@ -87,6 +87,10 @@
     }
 
     /* Szöveg színek */
+    .tcolor-red {
+      color: #f34b4b;
+    }
+
     .tcolor-blue {
       color: #1c50ec;
     }

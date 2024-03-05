@@ -21,14 +21,29 @@
   const AccountStore = useAccountStore()
   const linkButtons = ref([])
 
+  AccountStore['loggedUser'] = {}
+  AccountStore['loggedUser']['role'] = 'user'
+  AccountStore['loggedUser']['username'] = 'RadicsAdam'
+  
   if (AccountStore['loggedUser']) {
-    linkButtons.value = [
-      { buttonTitle: { name: 'Szabályzat' }, buttonPath: 'rules' },
-      { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
-      { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
-      { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
-      { buttonTitle: { name: `${ AccountStore['loggedUser']['username'] } (5:00)` }, buttonPath: '' }
-    ]
+    if (AccountStore['loggedUser']['role'] != 'user') {
+      linkButtons.value = [
+        { buttonTitle: { name: 'Szabályzat' }, buttonPath: 'rules' },
+        { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
+        { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
+        { buttonTitle: { name: 'Felhasználók kezelése' }, buttonPath: 'adminpanel' },
+        { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
+        { buttonTitle: { name: `${ AccountStore['loggedUser']['username'] } (5:00)` }, buttonPath: '' }
+      ]
+    } else {
+      linkButtons.value = [
+        { buttonTitle: { name: 'Szabályzat' }, buttonPath: 'rules' },
+        { buttonTitle: { name: 'Prémium Bolt', color: 'tcolor-lightblue' }, buttonPath: 'premiumshop' },
+        { buttonTitle: { name: 'Segédlet anyagok' }, buttonPath: 'tutorial' },
+        { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
+        { buttonTitle: { name: `${ AccountStore['loggedUser']['username'] } (5:00)` }, buttonPath: '' }
+      ]
+    }
   } else {
     linkButtons.value = [
       { buttonTitle: { name: 'Csatlakozás', color: 'tcolor-blue' }, buttonPath: 'discord' },
