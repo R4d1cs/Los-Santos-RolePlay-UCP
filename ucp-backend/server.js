@@ -72,7 +72,13 @@ expressApp.post('/API/loginUser', (req, res) => {
     const JWT_TOKEN = jwt.sign(userObject, process.env.JWT_KEY)
     userObject['accessToken'] = JWT_TOKEN
 
-    res.send([200, 'Sikeres bejelentkezés!', userObject])
+    mysqlPool.query(`UPDATE accounts SET refreshToken = '${ JWT_TOKEN }' WHERE username = '${ requestData.username }'`, (err) => {
+      if (err) {
+        return res.send([500, err.message])
+      }
+
+      res.send([200, 'Sikeres bejelentkezés!', userObject])
+    })
   })
 })
 

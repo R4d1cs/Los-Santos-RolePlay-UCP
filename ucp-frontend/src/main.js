@@ -27,16 +27,6 @@ const routes = [
     meta: { tabTitle: 'Hírek' }
   },
   {
-    path: '/login',
-    component: LoginComponent,
-    meta: { tabTitle: 'Bejelentkezés' }
-  },
-  {
-    path: '/register',
-    component: RegisterComponent,
-    meta: { tabTitle: 'Regisztráció' }
-  },
-  {
     path: '/rules',
     component: RulesView,
     meta: { tabTitle: 'Szabályzat' }
@@ -50,6 +40,16 @@ const routes = [
     path: '/:pathMatch(.*)*',
     component: PageNotFoundView,
     meta: { tabTitle: `Karbantartás alatt!` }
+  },
+  {
+    path: '/login',
+    component: LoginComponent,
+    meta: { tabTitle: 'Bejelentkezés' }
+  },
+  {
+    path: '/register',
+    component: RegisterComponent,
+    meta: { tabTitle: 'Regisztráció' }
   }
 ]
 

@@ -21,7 +21,7 @@
         <li class="link-item tcolor-blue">Csatlakozás</li>
       </router-link>
       <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'">
-        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser['username'] + ' (5:00)' : 'Bejelentkezés' }}</li>
+        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser['username'] + ' (' + formatCountdown(logoutTimer) + ')' : 'Bejelentkezés' }}</li>
       </router-link>
 
       <h6 v-if="AccountStore.getLoggedUser" @click="signOut">-></h6>
@@ -31,15 +31,25 @@
 
 <script setup>
   // Modules Imports
-  import { ref } from 'vue'
+  import { ref, inject } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
   // Declarations
   const AccountStore = useAccountStore()
+  const routerApp = useRouter()
+  const logoutTimer = inject('logoutTimer')
 
-  // Functions
   const signOut = () => {
     AccountStore.logoutUser()
+    routerApp.push('/news')
+  }
+
+  // Utitlites
+  const formatCountdown = (time) => {
+    const minutes = Math.floor(time / 60)
+    const seconds = time % 60
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
   }
 </script>
 

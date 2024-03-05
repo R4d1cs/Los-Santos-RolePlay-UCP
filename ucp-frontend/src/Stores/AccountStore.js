@@ -1,6 +1,8 @@
+// Modules Imports
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+// Variables
 const serverURL = 'http://localhost:3000/API'
 
 export const useAccountStore = defineStore('AccountStore', () => {

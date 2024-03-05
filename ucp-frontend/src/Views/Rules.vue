@@ -1,5 +1,5 @@
 <template>
-  <div class="rules-wrapper">
+  <div class="rules-wrapper" v-if="AccountStore.getLoggedUser">
     <h3 class="tsize-title">Szabályzatok</h3>
     <br>
     <details>
