@@ -66,13 +66,11 @@ expressApp.post('/API/loginUser', (req, res) => {
       accID: results[0].accountID,
       username: results[0].username,
       email: results[0].email,
-      role: results[0].role
+      role: results[0].role,
     }
+    userObject['refreshToken'] = jwt.sign(userObject, process.env.JWT_KEY)
 
-    const JWT_TOKEN = jwt.sign(userObject, process.env.JWT_KEY)
-    userObject['accessToken'] = JWT_TOKEN
-
-    mysqlPool.query(`UPDATE accounts SET refreshToken = '${ JWT_TOKEN }' WHERE username = '${ requestData.username }'`, (err) => {
+    mysqlPool.query(`UPDATE accounts SET refreshToken = '${ userObject['refreshToken'] }' WHERE username = '${ requestData.username }'`, (err) => {
       if (err) {
         return res.send([500, err.message])
       }
