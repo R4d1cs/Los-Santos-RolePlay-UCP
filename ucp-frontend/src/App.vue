@@ -155,5 +155,9 @@
     .tsize-title {
       font-size: 1rem;
     }
+
+    /* Animations */
+    .anim-hoverscale { transition: all .2s ease-in-out; }
+    .anim-hoverscale:hover { transform: scale(1.2); }
   }
 </style>

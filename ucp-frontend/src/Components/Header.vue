@@ -1,6 +1,6 @@
 <template>
   <div class="header-wrapper">
-    <router-link to="news" class="server_logo-wrapper" />
+    <router-link to="news" class="server_logo-wrapper anim-hoverscale" />
 
     <hr class="header-line" v-if="AccountStore.getLoggedUser">
 
@@ -24,7 +24,7 @@
         <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser['username'] + ' (' + formatCountdown(logoutTimer) + ')' : 'Bejelentkezés' }}</li>
       </router-link>
 
-      <h6 v-if="AccountStore.getLoggedUser" @click="signOut">-></h6>
+      <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="anim-hoverscale">-></h6>
     </ul>
   </div>
 </template>
@@ -100,6 +100,10 @@
         padding-left: 2px;
 
         background-color: rgb(255, 192, 120);
+
+        opacity: 0.8;
+
+        cursor: pointer;
       }
 
       a {
