@@ -24,13 +24,16 @@
   const AccountStore = useAccountStore()
   const routerApp = useRouter()
 
-  const logoutTimer = ref(10) // 5 minutes = 300 seconds
+  const logoutTimer = ref(900) // 5 minutes = 300 seconds
   const mouseMoveTimer = ref(null)
 
   // Functions
   const resetTimer = () => {
     clearInterval(mouseMoveTimer.value)
-    logoutTimer.value = 10 // Reset timer to default time
+
+    if (!AccountStore.getLoggedUser) return
+    
+    logoutTimer.value = 900 // Reset timer to default time
     mouseMoveTimer.value = setInterval(() => {
       logoutTimer.value -= 1
       if (logoutTimer.value <= 0) {

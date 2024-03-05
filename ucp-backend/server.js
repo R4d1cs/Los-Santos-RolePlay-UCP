@@ -47,7 +47,7 @@ expressApp.get('/API/news', (req, res) => {
 expressApp.post('/API/loginUser', (req, res) => {
   const requestData = req.body
 
-  mysqlPool.query(`SELECT * FROM accounts WHERE username = '${ requestData.username }'`, async (err, results) => {
+  mysqlPool.query(`SELECT * FROM accounts WHERE BINARY username = '${ requestData.username }'`, async (err, results) => {
     if (err) {
       return res.send([500, err.message])
     }
