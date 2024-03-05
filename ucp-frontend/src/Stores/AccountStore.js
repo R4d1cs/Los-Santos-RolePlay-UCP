@@ -24,9 +24,9 @@ export const useAccountStore = defineStore('AccountStore', () => {
 
   const getUserGroupName = (group) => {
     switch(group) {
-      case 'user': { return 'Felhasználó'; break; }
-      case 'aseged': { return 'Adminsegéd'; break; }
-      case 'admin': { return 'Admin'; break; }
+      case 'user': { return 'Felhasználó'; }
+      case 'aseged': { return 'Adminsegéd'; }
+      case 'admin': { return 'Admin'; }
     }
   } 
 
