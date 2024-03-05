@@ -24,9 +24,9 @@ export const useAccountStore = defineStore('AccountStore', () => {
     }
   }
 
-  const loginIn = async (credentials) => {
+  const loginUser = async (credentials) => {
     try {
-      const responseData = await fetch(`${ serverURL }/registerUser`, {
+      const responseData = await fetch(`${ serverURL }/loginUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -51,6 +51,7 @@ export const useAccountStore = defineStore('AccountStore', () => {
   // Exports what we want to access in the future
   return {
     loggedUser,
+    loginUser,
     registerUser,
     getUserGroupName
   }
