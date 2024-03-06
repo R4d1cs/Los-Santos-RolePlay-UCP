@@ -64,7 +64,7 @@
 <style lang="scss" scoped>
   .anyNewsNotFound {
     margin-top: -40%;
-    width: 1200px;
+    width: 850px;
 
     text-align: center;
     font-size: 0.8rem;
