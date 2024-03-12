@@ -13,6 +13,21 @@ expressApp.use(express.urlencoded({extended: true}))
 expressApp.use(cors())
 expressApp.use(express.json())
 
+// Middleware az access token check
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) return res.sendStatus(403)
+
+      req.user = user
+      next()
+  });
+}
+
 // MYSQL Pool create with connection attributes
 const mysqlPool = mysql.createPool({
   connectionLimit : 10,
@@ -25,8 +40,7 @@ const mysqlPool = mysql.createPool({
 
 mysqlPool.getConnection((err, conn) => {
   if (err) {
-    console.error(err)
-    return
+    return console.error(err)
   }
 
   console.log('MYSQL: Sikeres adatbázis csatlakozás!')
@@ -36,10 +50,10 @@ mysqlPool.getConnection((err, conn) => {
 expressApp.get('/API/news', (req, res) => {
   mysqlPool.query('SELECT * FROM news', (err, results) => {
     if (err) {
-      return res.status(500).send(err.message)
+      return res.send([500, err.message])
     }
 
-    res.status(200).send(results)
+    res.send([200, results])
   })
 })
 
@@ -68,15 +82,27 @@ expressApp.post('/API/loginUser', (req, res) => {
       email: results[0].email,
       role: results[0].role,
     }
-    userObject['refreshToken'] = jwt.sign(userObject, process.env.JWT_KEY)
+    userObject.refreshToken = jwt.sign(userObject, process.env.JWT_KEY)
 
-    mysqlPool.query(`UPDATE accounts SET refreshToken = '${ userObject['refreshToken'] }' WHERE username = '${ requestData.username }'`, (err) => {
+    mysqlPool.query(`UPDATE accounts SET refreshToken = '${ userObject.refreshToken }' WHERE username = '${ requestData.username }'`, (err) => {
       if (err) {
         return res.send([500, err.message])
       }
 
       res.send([200, 'Sikeres bejelentkezés!', userObject])
     })
+  })
+})
+
+expressApp.post('/API/profile', authenticateToken, (req, res) => {
+  const requestData = req.body
+
+  mysqlPool.query(`SELECT * FROM accounts WHERE accountID = ${ requestData.ID }`, (err, results) => {
+    if (err) {
+      return res.send([500, err.message])
+    }
+
+    res.send([200, results])
   })
 })
 
@@ -93,7 +119,6 @@ expressApp.post('/API/registerUser', (req, res) => {
     }
 
     mysqlPool.query(`SELECT email FROM accounts WHERE email = '${ requestData.email }'`, async (err, results) => {
-      console.log(results)
       if (results != 0) {
         return res.send([401, 'Ilyen e-mail címmel rendelkező felhasználó már van!'])
       }

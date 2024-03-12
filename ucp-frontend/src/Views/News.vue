@@ -56,7 +56,7 @@
         return
       }
 
-      newsDatas.value = data
+      newsDatas.value = data[1]
     })
   })
 </script>
