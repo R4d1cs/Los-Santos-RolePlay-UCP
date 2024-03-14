@@ -11,6 +11,7 @@ import PageNotFoundView from '@/Views/PageNotFound'
 import NewsView from '@/Views/News'
 import RulesView from '@/Views/Rules'
 import DiscordView from '@/Views/Discord'
+import ProfileView from '@/Views/Profile'
 
 import LoginComponent from '@/Components/Login'
 import RegisterComponent from '@/Components/Register'
@@ -37,9 +38,9 @@ const routes = [
     meta: { tabTitle: 'Discord Csatlakozás' }
   },
   {
-    path: '/:pathMatch(.*)*',
-    component: PageNotFoundView,
-    meta: { tabTitle: `Karbantartás alatt!` }
+    path: '/profile',
+    component: ProfileView,
+    meta: { tabTitle: 'Profilod' }
   },
   {
     path: '/login',
@@ -50,6 +51,11 @@ const routes = [
     path: '/register',
     component: RegisterComponent,
     meta: { tabTitle: 'Regisztráció' }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: PageNotFoundView,
+    meta: { tabTitle: `Karbantartás alatt!` }
   }
 ]
 

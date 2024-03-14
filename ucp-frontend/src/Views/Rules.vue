@@ -73,7 +73,7 @@
         </ul>
       </div>
     </details>
-    <details v-if="AccountStore.getLoggedUser['role'] == 'admin'">
+    <details v-if="AccountStore.getLoggedUser.role == 'admin'">
       <summary>Admin szabályzat leírása</summary>
       <hr>
       <div class="list">

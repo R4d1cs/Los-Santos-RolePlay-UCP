@@ -4,7 +4,6 @@ const cors = require('cors')
 const mysql = require('mysql')
 const dotEnv = require('dotenv').config()
 const argon2 = require('argon2')
-const jwt = require('jsonwebtoken')
 
 // Modules Declarations
 const expressApp = express()
@@ -12,21 +11,6 @@ const expressApp = express()
 expressApp.use(express.urlencoded({extended: true}))
 expressApp.use(cors())
 expressApp.use(express.json())
-
-// Middleware az access token check
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-
-  if (token == null) return res.sendStatus(401)
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) return res.sendStatus(403)
-
-      req.user = user
-      next()
-  });
-}
 
 // MYSQL Pool create with connection attributes
 const mysqlPool = mysql.createPool({
@@ -61,48 +45,58 @@ expressApp.get('/API/news', (req, res) => {
 expressApp.post('/API/loginUser', (req, res) => {
   const requestData = req.body
 
-  mysqlPool.query(`SELECT * FROM accounts WHERE BINARY username = '${ requestData.username }'`, async (err, results) => {
+  mysqlPool.query(`SELECT * FROM accounts WHERE BINARY username = '${ requestData.username }'`, async (err, accountResults) => {
     if (err) {
       return res.send([500, err.message])
     }
 
-    if (results == 0) {
+    if (accountResults == 0) {
       return res.send([401, 'Ilyen felhasználó nincsen a rendszerben!'])
     }
 
-    const verifyHashedPassword = await argon2.verify(results[0].password, requestData.password)
+    const verifyHashedPassword = await argon2.verify(accountResults[0].password, requestData.password)
 
     if (!verifyHashedPassword) {
       return res.send([401, 'Helytelen jelszót adtál meg!'])
     }
 
-    const userObject = {
-      accID: results[0].accountID,
-      username: results[0].username,
-      email: results[0].email,
-      role: results[0].role,
-    }
-    userObject.refreshToken = jwt.sign(userObject, process.env.JWT_KEY)
+    mysqlPool.query(`SELECT * FROM characters WHERE accID = '${ accountResults[0].accID }'`, async (err, charResults) => {
+      if (charResults == 0) {
+        const userObject = {
+          accountData: {
+            accID: accountResults[0].accID,
+            username: accountResults[0].username,
+            email: accountResults[0].email,
+            role: accountResults[0].role,
+            updatedAt: accountResults[0].updatedAt,
+            createdAt: accountResults[0].createdAt
+          }
+        }
+  
+        return res.send([200, 'Sikeres bejelentkezés!', userObject])
+      }
 
-    mysqlPool.query(`UPDATE accounts SET refreshToken = '${ userObject.refreshToken }' WHERE username = '${ requestData.username }'`, (err) => {
-      if (err) {
-        return res.send([500, err.message])
+      const userObject = {
+        accountData: {
+          accID: accountResults[0].accID,
+          username: accountResults[0].username,
+          email: accountResults[0].email,
+          role: accountResults[0].role,
+          updatedAt: accountResults[0].updatedAt,
+          createdAt: accountResults[0].createdAt
+        },
+        charData: {
+          charID: charResults[0].charID,
+          charName: charResults[0].charName,
+          gameTime: charResults[0].gameTime,
+          cashBalance: charResults[0].cashBalance,
+          bankBalance: charResults[0].bankBalance,
+          updatedAt: charResults[0].updatedAt
+        }
       }
 
       res.send([200, 'Sikeres bejelentkezés!', userObject])
     })
-  })
-})
-
-expressApp.post('/API/profile', authenticateToken, (req, res) => {
-  const requestData = req.body
-
-  mysqlPool.query(`SELECT * FROM accounts WHERE accountID = ${ requestData.ID }`, (err, results) => {
-    if (err) {
-      return res.send([500, err.message])
-    }
-
-    res.send([200, results])
   })
 })
 

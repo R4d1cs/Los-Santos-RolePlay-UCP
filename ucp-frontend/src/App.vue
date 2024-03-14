@@ -1,49 +1,20 @@
 <template>
   <!-- Header Component on top of screen -->
-  <HeaderComponent @mousemove="resetTimer"/>
+  <HeaderComponent />
 
   <!-- Router view for specified routes -->
-  <div class="router_view-wrapper" @mousemove="resetTimer">
+  <div class="router_view-wrapper">
     <router-view />
   </div>
 
   <!-- Footer Component on bottom of screen -->
-  <FooterComponent @mousemove="resetTimer"/>
+  <FooterComponent />
 </template>
 
 <script setup>
   // Modules Imports
   import HeaderComponent from '@/Components/Header.vue'
   import FooterComponent from '@/Components/Footer.vue'
-
-  import { provide, ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  import { useAccountStore } from '@/Stores/AccountStore.js'
-
-  // Declarations
-  const AccountStore = useAccountStore()
-  const routerApp = useRouter()
-
-  const logoutTimer = ref(900) // 5 minutes = 300 seconds
-  const mouseMoveTimer = ref(null)
-
-  // Functions
-  const resetTimer = () => {
-    clearInterval(mouseMoveTimer.value)
-
-    if (!AccountStore.getLoggedUser) return
-    
-    logoutTimer.value = 900 // Reset timer to default time
-    mouseMoveTimer.value = setInterval(() => {
-      logoutTimer.value -= 1
-      if (logoutTimer.value <= 0) {
-        AccountStore.logoutUser()
-        routerApp.push('/news')
-      }
-    }, 1000)
-  }
-
-  provide('logoutTimer', logoutTimer)
 </script>
 
 <style>

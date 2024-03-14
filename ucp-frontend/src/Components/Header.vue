@@ -14,14 +14,14 @@
       <router-link to="tutorial" v-if="AccountStore.getLoggedUser">
         <li class="link-item">Segédlet anyagok</li>
       </router-link>
-      <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser['role'] == 'admin'">
+      <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
         <li class="link-item">Felhasználók kezelése</li>
       </router-link>
       <router-link to="discord">
         <li class="link-item tcolor-blue">Csatlakozás</li>
       </router-link>
       <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'">
-        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser['username'] + ' (' + formatCountdown(logoutTimer) + ')' : 'Bejelentkezés' }}</li>
+        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getLoggedUser.accountData.role + ')' : 'Bejelentkezés' }}</li>
       </router-link>
 
       <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="anim-hoverscale">-></h6>
@@ -31,25 +31,16 @@
 
 <script setup>
   // Modules Imports
-  import { ref, inject } from 'vue'
   import { useRouter } from 'vue-router'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
   // Declarations
   const AccountStore = useAccountStore()
   const routerApp = useRouter()
-  const logoutTimer = inject('logoutTimer')
 
   const signOut = () => {
     AccountStore.logoutUser()
     routerApp.push('/news')
-  }
-
-  // Utitlites
-  const formatCountdown = (time) => {
-    const minutes = Math.floor(time / 60)
-    const seconds = time % 60
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
   }
 </script>
 
