@@ -59,7 +59,7 @@ expressApp.post('/API/loginUser', (req, res) => {
     if (!verifyHashedPassword) {
       return res.send([401, 'Helytelen jelszót adtál meg!'])
     }
-
+    
     mysqlPool.query(`SELECT * FROM characters WHERE accID = '${ accountResults[0].accID }'`, async (err, charResults) => {
       if (charResults == 0) {
         const userObject = {
@@ -126,6 +126,50 @@ expressApp.post('/API/registerUser', (req, res) => {
 
         res.send([200, 'Sikeres regisztráció!'])
       })
+    })
+  })
+})
+
+expressApp.post('/API/getUserProfile', (req, res) => {
+  const requestData = req.body
+
+  mysqlPool.query(`SELECT * FROM accounts WHERE accID = '${ requestData.accID }'`, async (err, accountResults) => {
+    mysqlPool.query(`SELECT * FROM characters WHERE accID = '${ accountResults[0].accID }'`, async (err, charResults) => {
+      if (charResults == 0) {
+        const userObject = {
+          accountData: {
+            accID: accountResults[0].accID,
+            username: accountResults[0].username,
+            email: accountResults[0].email,
+            role: accountResults[0].role,
+            updatedAt: accountResults[0].updatedAt,
+            createdAt: accountResults[0].createdAt
+          }
+        }
+
+        return res.send([200, 'Sikeres profil adat lekérés!', userObject])
+      }
+
+      const userObject = {
+        accountData: {
+          accID: accountResults[0].accID,
+          username: accountResults[0].username,
+          email: accountResults[0].email,
+          role: accountResults[0].role,
+          updatedAt: accountResults[0].updatedAt,
+          createdAt: accountResults[0].createdAt
+        },
+        charData: {
+          charID: charResults[0].charID,
+          charName: charResults[0].charName,
+          gameTime: charResults[0].gameTime,
+          cashBalance: charResults[0].cashBalance,
+          bankBalance: charResults[0].bankBalance,
+          updatedAt: charResults[0].updatedAt
+        }
+      }
+
+      res.send([200, 'Sikeres profil adat lekérés!', userObject])
     })
   })
 })

@@ -11,18 +11,26 @@ export const useAccountStore = defineStore('AccountStore', () => {
 
   // METHODS/SETTERS
   const setLoggedUser = (value) => {
-    return loggedUser.value = value
+    loggedUser.value = value
   }
 
   // COMPUTED/GETTERS
   const getLoggedUser = computed(() => {
-    return loggedUser.value
+    if (!loggedUser.value) return loggedUser.value
+
+    try {
+      const serverResData = getUserProfileData(loggedUser.value.accountData.accID).then(resData => { return resData[2] })
+      return serverResData
+    } catch (error) {
+      console.error('Error fetching user profile data:', error)
+      return null
+    }
   })
 
   // Functions
   const loginUser = async (credentials) => {
     try {
-      const responseData = await fetch(`${ serverURL }/loginUser`, {
+      const responseData = await fetch(`${serverURL}/loginUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -32,17 +40,17 @@ export const useAccountStore = defineStore('AccountStore', () => {
       const responseJson = await responseData.json()
       return responseJson
     } catch (err) {
-      console.error(`Error fetching "accounts" table! (Err:  ${ err })`)
+      console.error(`Error fetching "accounts" table! (Err: ${err})`)
     }
   }
 
   const logoutUser = () => {
-    setLoggedUser(null)
+    setLoggedUser(null) // Reset the logged-in user upon logout
   }
 
   const registerUser = async (credentials) => {
     try {
-      const responseData = await fetch(`${ serverURL }/registerUser`, {
+      const responseData = await fetch(`${serverURL}/registerUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -52,14 +60,31 @@ export const useAccountStore = defineStore('AccountStore', () => {
       const responseJson = await responseData.json()
       return responseJson
     } catch (err) {
-      console.error(`Error fetching "accounts" table! (Err:  ${ err })`)
+      console.error(`Error fetching "accounts" table! (Err: ${err})`)
     }
   }
 
   const getUserGroupName = (role) => {
     switch (role) {
-      case 'admin': { return 'Admin' }
-      case 'user': { return 'Felhasználó' }
+      case 'admin': return 'Admin'
+      case 'user': return 'User'
+      default: return 'Unknown'
+    }
+  }
+
+  const getUserProfileData = async (accID) => {
+    try {
+      const responseData = await fetch(`${serverURL}/getUserProfile`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ accID })
+      })
+      const responseJson = await responseData.json()
+      return responseJson
+    } catch (err) {
+      throw console.error(`Error fetching "accounts" or "characters" table! (Err: ${err})`) // Throw an error to let the callers handle it appropriately
     }
   }
 

@@ -13,10 +13,11 @@
 
 <script setup>
   // Modules Imports
-  import { provide } from 'vue'
+  import { ref, provide } from 'vue'
   import HeaderComponent from '@/Components/Header.vue'
   import FooterComponent from '@/Components/Footer.vue'
 
+  // Functions
   function formatDate(dateString) {
     if (!dateString) return null // If date not getted, return 'null'
 
