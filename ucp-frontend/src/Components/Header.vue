@@ -11,9 +11,6 @@
       <router-link to="premiumshop" v-if="AccountStore.getLoggedUser">
         <li class="link-item tcolor-lightblue">Prémium Bolt</li>
       </router-link>
-      <router-link to="tutorial" v-if="AccountStore.getLoggedUser">
-        <li class="link-item">Segédlet anyagok</li>
-      </router-link>
       <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
         <li class="link-item">Felhasználók kezelése</li>
       </router-link>
@@ -21,7 +18,7 @@
         <li class="link-item tcolor-blue">Csatlakozás</li>
       </router-link>
       <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'">
-        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getLoggedUser.accountData.role + ')' : 'Bejelentkezés' }}</li>
+        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</li>
       </router-link>
 
       <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="anim-hoverscale">-></h6>

@@ -56,6 +56,13 @@ export const useAccountStore = defineStore('AccountStore', () => {
     }
   }
 
+  const getUserGroupName = (role) => {
+    switch (role) {
+      case 'admin': { return 'Admin' }
+      case 'user': { return 'Felhasználó' }
+    }
+  }
+
   // Exports what we want to access in the future
   return {
     loggedUser,
@@ -63,6 +70,7 @@ export const useAccountStore = defineStore('AccountStore', () => {
     getLoggedUser,
     loginUser,
     logoutUser,
-    registerUser
+    registerUser,
+    getUserGroupName
   }
 }, { persist: true })

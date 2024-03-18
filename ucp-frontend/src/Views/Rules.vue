@@ -73,22 +73,22 @@
         </ul>
       </div>
     </details>
-    <details v-if="AccountStore.getLoggedUser.role == 'admin'">
+    <details v-if="AccountStore.getLoggedUser.accountData.role == 'admin'">
       <summary>Admin szabályzat leírása</summary>
       <hr>
       <div class="list">
         <h5>1. Rablásra vonatkozó szabályzat: (Ez még nem hivatalos adatok!)</h5>
         <ul class="list-pointed">
-          <li>Tilos a káromkodás.</li>
-          <li>Tilos pornográf tartalmat megosztani vagy profilképként használni.</li>
-          <li>Tilos személyes adatokat publikálni.</li>
-          <li>CAPS LOCK-ot csak indokolt esetben használj és ne írj csupa nagybetűvel.</li>
-          <li>Tilos a zaklatás és fenyegetés.</li>
-          <li>Tilos a törölt tartalmak újra közlése.</li>
-          <li>Mindenkivel úgy beszélj ahogy te másoktól elvárod.</li>
-          <li>Tilos a rangoddal visszaélni.</li>
-          <li>Más szerverek hirdetése tilos.</li>
-          <li>Szándékos rosszindulatból vagy kontextusba nem illő emojikat használni tilos(skull, clown).</li>
+          <li><span class="title">- Tilos a káromkodás.</span></li>
+          <li><span class="title">- Tilos pornográf tartalmat megosztani vagy profilképként használni.</span></li>
+          <li><span class="title">- Tilos személyes adatokat publikálni.</span></li>
+          <li><span class="title">- CAPS LOCK-ot csak indokolt esetben használj és ne írj csupa nagybetűvel.</span></li>
+          <li><span class="title">- Tilos a zaklatás és fenyegetés.</span></li>
+          <li><span class="title">- Tilos a törölt tartalmak újra közlése.</span></li>
+          <li><span class="title">- Mindenkivel úgy beszélj ahogy te másoktól elvárod.</span></li>
+          <li><span class="title">- Tilos a rangoddal visszaélni.</span></li>
+          <li><span class="title">- Más szerverek hirdetése tilos.</span></li>
+          <li><span class="title">- Szándékos rosszindulatból vagy kontextusba nem illő emojikat használni tilos(skull, clown).</span></li>
         </ul>
       </div>
     </details>
