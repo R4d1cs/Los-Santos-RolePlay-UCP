@@ -34,14 +34,15 @@
     }
 
     await AccountStore.loginUser({ username: username.value, password: password.value }).then((serverResData) => {
-      if (serverResData[0] !== 200) return alert(serverResData[1])
+      alert(serverResData.message)
 
-      AccountStore.setLoggedUser(serverResData[2])
-      routerApp.push('/news')
-      alert(serverResData[1])
+      if (serverResData.data) {
+        AccountStore.setLoggedUser(serverResData.data)
+        routerApp.push('/news')
 
-      username.value = ''
-      password.value = ''
+        username.value = ''
+        password.value = ''
+      }
     })
   }
 </script>
@@ -62,6 +63,14 @@
     border-radius: 5px;
 
     background-color: rgba(20, 20, 20, 0.9);
+
+    hr {
+      height: 2px;
+
+      border-radius: 15px;
+      
+      background-color: rgba(112, 212, 120, 0.9);
+    }
 
     .linkButtons {
       display: flex;

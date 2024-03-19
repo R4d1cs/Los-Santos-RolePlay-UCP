@@ -39,11 +39,10 @@
     }
 
     await AccountStore.registerUser({ username: username.value, password: password.value, email: email.value }).then((serverResData) => {
-      if (serverResData[0] !== 200) return alert(serverResData[1])
-      
-      routerApp.push('/login')
-      alert(serverResData[1])
+      alert(serverResData.message)
 
+      routerApp.push('/login')
+      
       username.value = ''
       password.value = ''
       confirmPassword.value = ''
@@ -68,6 +67,14 @@
     border-radius: 5px;
 
     background-color: rgba(20, 20, 20, 0.9);
+
+    hr {
+      height: 2px;
+
+      border-radius: 15px;
+      
+      background-color: rgba(54, 64, 201, 0.9);
+    }
 
     .loginBtn {
       margin: auto;

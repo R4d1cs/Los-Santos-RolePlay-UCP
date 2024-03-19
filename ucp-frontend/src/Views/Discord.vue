@@ -1,10 +1,10 @@
 <template>
   <div class="discord_connecting-wrapper">
-    <h3 class="tsize-title">Csatlakozz a közösségünkhez a Discord-on!</h3>
+    <h3>Csatlakozz a közösségünkhez a Discord-on!</h3>
     <p>Készen állsz arra, hogy a FiveM közösségének egy aktív részévé válj? Csatlakozz hozzánk a Discord szerverünkön keresztül, ahol számos lehetőség vár rád, hogy még teljesebbé tegye játékélményedet a FiveM világában!</p>
     <br>
     <h4>A Discord szerverünkön:</h4>
-    <ul class="list-pointed">
+    <ul>
       <li>Társaság: Ismerj meg új embereket, beszélgess és osszd meg tapasztalataidat más játékosokkal.</li>
       <li>Versenyek és Események: Vegyél részt izgalmas versenyeken, rendezvényeken és egyéb közösségi eseményeken, ahol megmutathatod képességeidet és kiépíthetsz barátságokat.</li>
       <li>Segítség és Támogatás: Bármilyen kérdésed vagy problémád van, a közösségünk mindig itt van, hogy segítsen és támogasson téged.</li>
@@ -21,10 +21,9 @@
   .discord_connecting-wrapper {
     display: flex;
     flex-direction: column;
-    align-self: start;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
-
-    margin: 10% 5%;
 
     width: 1200px;
 

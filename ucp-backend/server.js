@@ -85,40 +85,38 @@ expressApp.post('/API/registerUser', async (req, res) => {
   }
 });
 
-expressApp.post('/API/getUserProfile', async (req, res) => {
-  const requestData = req.body;
-
-  try {
-    const accountResults = await getUserAccount(requestData.accID);
-    const charResults = await getUserCharacters(accountResults[0].accID);
-
-    const userObject = {
-      accountData: {
-        accID: accountResults[0].accID,
-        username: accountResults[0].username,
-        email: accountResults[0].email,
-        role: accountResults[0].role,
-        updatedAt: accountResults[0].updatedAt,
-        createdAt: accountResults[0].createdAt
-      },
-      charData: charResults.length > 0 ? {
-        charID: charResults[0].charID,
-        charName: charResults[0].charName,
-        gameTime: charResults[0].gameTime,
-        cashBalance: charResults[0].cashBalance,
-        bankBalance: charResults[0].bankBalance,
-        updatedAt: charResults[0].updatedAt
-      } : null
-    };
-
-    return res.status(200).json({ message: 'Successful profile data retrieval!', data: userObject });
-  } catch (error) {
-    console.error('Error fetching user profile data:', error);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-});
 
 // Helper Functions
+async function getUserProfileData(accID) {
+  return new Promise((resolve, reject) => {
+    mysqlPool.query(`SELECT * FROM accounts WHERE accID = '${accID}'`, (err, accountResults) => {
+      if (err) reject(err);
+      mysqlPool.query(`SELECT * FROM characters WHERE accID = '${accountResults[0].accID}'`, (err, charResults) => {
+        if (err) reject(err);
+        const userObject = {
+          accountData: {
+            accID: accountResults[0].accID,
+            username: accountResults[0].username,
+            email: accountResults[0].email,
+            role: accountResults[0].role,
+            updatedAt: accountResults[0].updatedAt,
+            createdAt: accountResults[0].createdAt
+          },
+          charData: charResults.length > 0 ? {
+            charID: charResults[0].charID,
+            charName: charResults[0].charName,
+            gameTime: charResults[0].gameTime,
+            cashBalance: charResults[0].cashBalance,
+            bankBalance: charResults[0].bankBalance,
+            updatedAt: charResults[0].updatedAt
+          } : null
+        };
+        resolve(userObject);
+      });
+    });
+  });
+}
+
 async function getUserAccount(username) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(`SELECT * FROM accounts WHERE BINARY username = '${username}'`, (err, results) => {

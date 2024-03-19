@@ -1,7 +1,4 @@
 <template>
-  <div class="anyNewsNotFound" v-if="newsDatas.length === 0">
-    <p>Jelenleg nincs egyetlen friss hír sem.</p>
-  </div>
   <div class="news-wrapper" v-if="newsDatas.length > 0">
     <h3 class="tsize-title">Hírek</h3>
     <div class="news-items">
@@ -43,34 +40,30 @@
   // Modules Imports
   import { ref, onMounted } from 'vue'
   import LoginComponent from '@/Components/Login'
-  import { useNewsStore } from '@/Stores/NewsStore.js'
+  import { serverURL } from '@/main'
 
   // Declarations
-  const NewsStore = useNewsStore()
   const newsDatas = ref([])
 
-  // Functions
+  // Fill newsDatas table with current news
   onMounted(async () => {
-    await NewsStore.getNews().then((data) => {
-      if (data === undefined) {
-        return
-      }
-
-      newsDatas.value = data[1]
-    })
+    try {
+      const responseData = await fetch(`${serverURL}/news`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const responseJson = await responseData.json()
+      newsDatas.value = responseJson
+    } catch (err) {
+      console.error(`Error fetching "news" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
   })
 </script>
 
 <style lang="scss" scoped>
-  .anyNewsNotFound {
-    margin-top: -40%;
-    width: 850px;
-
-    text-align: center;
-    font-size: 0.8rem;
-    color: white;
-  }
-
   .news-wrapper {
     display: flex;
     flex-direction: column;

@@ -5,6 +5,7 @@
       <summary>Szerver szabályzat leírása</summary>
       <hr>
       <div class="list">
+        <br>
         <h5>1. Alapfogalmak:</h5>
         <ul class="list-pointed">
           <li><span class="title">- RP (RolePlay):</span> Szerepjáték.</li>
@@ -26,6 +27,7 @@
         </ul>
       </div>
       <div class="list">
+        <br>
         <h5>2. Általános szabályzat:</h5>
         <ul class="list-pointed">
           <li><span class="title">- Az öngyilkos RP-t csak az Adminok engedélyével lehet megtenni.</span></li>
@@ -40,9 +42,10 @@
           <li><span class="title">- A kórházból a szökési kísérlet engedélyezett.</span></li>
           <li><span class="title">- Kórházi ellátás esetén tilos visszamenni a tűzharcba.</span></li>
           <li><span class="title">- A szögesdrótot kizárólag utakra és járdákra lehet lehelyezni.</span></li>
-          <li><span class="title">- A fegyver csak akkor van elrejtve ha az adott ruhadarab alól nem látszik ki.</span> <span class="title"> Amennyiben még is kilátszódna akkor nyugodtan fel lehet használni IC információnak.</span></li>
+          <li><span class="title">- A fegyver csak akkor van elrejtve ha az adott ruhadarab alól nem látszik ki. (Amennyiben még is kilátszódna akkor nyugodtan fel lehet használni IC információnak.)</span></li>
         </ul>
       </div>
+      <br>
       <div class="list">
         <h5>3. Karakter létrehozási szabályzat:</h5>
         <ul class="list-pointed">
@@ -54,41 +57,49 @@
           <li><span class="title">- Háborús bűnöst, történelmi személyt, közszereplőt tilos RP-zni!</span></li>
         </ul>
       </div>
-    </details>
-    <details>
-      <summary>Discord szabályzat leírása</summary>
-      <hr>
       <div class="list">
+        <br>
+        <h5>4. Forgalmas/Nyilvános helyekre vonatkozó szabályzat:</h5>
         <ul class="list-pointed">
-          <li><span class="title">- Tilos a káromkodás.</span></li>
-          <li><span class="title">- Tilos pornográf tartalmat megosztani vagy profilképként használni.</span></li>
-          <li><span class="title">- Tilos személyes adatokat publikálni.</span></li>
-          <li><span class="title">- CAPS LOCK-ot csak indokolt esetben használj és ne írj csupa nagybetűvel.</span></li>
-          <li><span class="title">- Tilos a zaklatás és fenyegetés.</span></li>
-          <li><span class="title">- Tilos a törölt tartalmak újra közlése.</span></li>
-          <li><span class="title">- Mindenkivel úgy beszélj ahogy te másoktól elvárod.</span></li>
-          <li><span class="title">- Tilos a rangoddal visszaélni.</span></li>
-          <li><span class="title">- Más szerverek hirdetése tilos.</span></li>
-          <li><span class="title">- Szándékos rosszindulatból vagy kontextusba nem illő emojikat használni tilos(skull, clown).</span></li>
+          <li><span class="title">- Minden ikonnal jelölt hely a térképen és ezeknek az 50 m-es körzetében tilos a rablás / indokolatlan lövöldözés!</span></li>
+          <li><span class="title">- Kereskedelmi egységek:</span> boltok, benzinkutak, stb.</li>
+          <li><span class="title">- Szolgáltató egységek:</span> fodrászat, szerelőtelep, kávézó, taxiállomás, stb.</li>
+          <li><span class="title">- Pénzintézetek:</span> bankfiókok, kis bankok és Állami Bank</li>
+          <li><span class="title">- Közintézmények:</span> kórház, munkaügyi központ, stb.</li>
+          <li><span class="title">- Rendvédelmi épületek:</span> Los Santos Police Department központ</li>
+          <li><span class="title">- Munkahelyek, azok öltözői, állomásai és jármű raktárai.</span></li>
+          <li><span class="title">- Nyilvános garázsok, kikötők és hangár.</span></li>
+          <li><span class="title">- Lefoglalt járművek garázsa, hangára és kikötője.</span></li>
+          <li><span class="title">- Autós parkolók.</span></li>
+          <li><span class="title">- Minden olyan, a térképen nem jelölt hely, ahol egyidőben 8+ fő civil tartózkodik.</span></li>
+          <li><span class="title">- Jogos önvédelem esetén sikertelen szóbeli felszólítás után, a támadó szándékkal közelítőre figyelmeztető lövés adható le.</span></li>
+          <li><span class="title">- Hotel, Motel és magáningatlan nem számít nyilvános helynek!</span></li>
+          <li><span class="title">- TILOS bemenekülni a fent sorolt helyekre, annak tudatában, hogy azok védett területek!</span> <span class="title">(Például üldöznek hogy elraboljanak, ezért te bemenekülsz egy forgalmas helyre.)</span></li>
         </ul>
       </div>
-    </details>
-    <details v-if="AccountStore.getLoggedUser.accountData.role == 'admin'">
-      <summary>Admin szabályzat leírása</summary>
-      <hr>
       <div class="list">
-        <h5>1. Rablásra vonatkozó szabályzat: (Ez még nem hivatalos adatok!)</h5>
+        <br>
+        <h5>5. Illegális frakciókra vonatkozó szabályzat:</h5>
         <ul class="list-pointed">
-          <li><span class="title">- Tilos a káromkodás.</span></li>
-          <li><span class="title">- Tilos pornográf tartalmat megosztani vagy profilképként használni.</span></li>
-          <li><span class="title">- Tilos személyes adatokat publikálni.</span></li>
-          <li><span class="title">- CAPS LOCK-ot csak indokolt esetben használj és ne írj csupa nagybetűvel.</span></li>
-          <li><span class="title">- Tilos a zaklatás és fenyegetés.</span></li>
-          <li><span class="title">- Tilos a törölt tartalmak újra közlése.</span></li>
-          <li><span class="title">- Mindenkivel úgy beszélj ahogy te másoktól elvárod.</span></li>
-          <li><span class="title">- Tilos a rangoddal visszaélni.</span></li>
-          <li><span class="title">- Más szerverek hirdetése tilos.</span></li>
-          <li><span class="title">- Szándékos rosszindulatból vagy kontextusba nem illő emojikat használni tilos(skull, clown).</span></li>
+          <li><span class="title">- Nem nyithat tüzet a frakció HQ-jára.</span></li>
+          <li><span class="title">- Merészkedő emberekre nyomós indok nélkül.</span></li>
+          <li><span class="title">- Ha egy illegális szerv elrabol egy másik illegális szervben lévő személyt, akkor az ő frakciója köteles váltságdíjat fizetni, ellenkező esetben automatikus frakció ck-ban  részesül abban az esetben ha a frakciójában lévő személyek nem indultak az elrabolt személy megmentésére.</span></li>
+          <li><span class="title">- A maximum váltságdíj XXX összeg.</span></li>
+          <li><span class="title">- Nem érvényes abban az esetben ha a frakcióban lévő emberek nem elérhetőek.</span></li>
+          <li><span class="title">- A legális frakcióban lévő játékosokat nem lehet ilyen módon elrabolni.</span></li>
+        </ul>
+      </div>
+      <div class="list">
+        <br>
+        <h5>6. Rablás szabályzat:</h5>
+        <ul class="list-pointed">
+          <li><span class="title">- Rabláshoz kötelező túszt vinni.</span></li>
+          <li><span class="title">- Boltrablás esetén nem kötelező megvárni a rendőrök kiérkezését.</span></li>
+          <li><span class="title">- Nem lehet váltságdíjat kérni.</span></li>
+          <li><span class="title">- Szolgálatban lévő rendőrök nem lehetnek túszok.</span></li>
+          <li><span class="title">- Tilos a beépített túsz.</span></li>
+          <li><span class="title">- Restart előtt 60 perccel tilos a rablás.</span></li>
+          <li><span class="title">- Nemzeti Bank rablása esetén a zsákmányt a rablást követő 15 percben tilos letenni vagy átadni.</span></li>
         </ul>
       </div>
     </details>
@@ -127,19 +138,12 @@
       }
 
       .list {
-        margin-left: 15px;
-
-        h5 {
-          margin-top: 25px;
-          margin-bottom: 15px;
-        }
-
         .list-pointed {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 5px;
 
-          margin-top: 5px;
+          margin-left: 20px;
 
           list-style-type: none;
           font-size: 0.9rem;
@@ -149,8 +153,6 @@
               
             .title {
               color: wheat;
-
-              padding: 4px;
 
               background-color: rgb(0, 65, 93);
             }

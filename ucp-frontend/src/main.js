@@ -1,79 +1,51 @@
 // Default vue imports
-import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
-import App from './App.vue'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import App from './App.vue';
 
 // Views, Components Imports for vue-router
-import PageNotFoundView from '@/Views/PageNotFound'
-import NewsView from '@/Views/News'
-import RulesView from '@/Views/Rules'
-import DiscordView from '@/Views/Discord'
-import ProfileView from '@/Views/Profile'
+import PageNotFoundView from '@/Views/PageNotFound.vue';
+import NewsView from '@/Views/News.vue';
+import RulesView from '@/Views/Rules.vue';
+import DiscordView from '@/Views/Discord.vue';
+import ProfileView from '@/Views/Profile.vue';
 
-import LoginComponent from '@/Components/Login'
-import RegisterComponent from '@/Components/Register'
+import LoginComponent from '@/Components/Login.vue';
+import RegisterComponent from '@/Components/Register.vue';
 
 // Variables
-const webPrefix = 'Los Santos RolePlay'
+const webPrefix = 'Los Santos RolePlay';
+const serverURL = 'http://localhost:3000/API';
 
 // URL routes
 const routes = [
-  {
-    path: '/news',
-    alias: ['/'],
-    component: NewsView,
-    meta: { tabTitle: 'Hírek' }
-  },
-  {
-    path: '/rules',
-    component: RulesView,
-    meta: { tabTitle: 'Szabályzat' }
-  },
-  {
-    path: '/discord',
-    component: DiscordView,
-    meta: { tabTitle: 'Discord Csatlakozás' }
-  },
-  {
-    path: '/profile',
-    component: ProfileView,
-    meta: { tabTitle: 'Profilod' }
-  },
-  {
-    path: '/login',
-    component: LoginComponent,
-    meta: { tabTitle: 'Bejelentkezés' }
-  },
-  {
-    path: '/register',
-    component: RegisterComponent,
-    meta: { tabTitle: 'Regisztráció' }
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    component: PageNotFoundView,
-    meta: { tabTitle: `Karbantartás alatt!` }
-  }
-]
+  { path: '/news', alias: ['/', '/home'], component: NewsView, meta: { tabTitle: 'Hírek' } },
+  { path: '/rules', component: RulesView, meta: { tabTitle: 'Szabályzat' } },
+  { path: '/discord', component: DiscordView, meta: { tabTitle: 'Discord Csatlakozás' } },
+  { path: '/profile', component: ProfileView, meta: { tabTitle: 'Profilod' } },
+  { path: '/login', component: LoginComponent, meta: { tabTitle: 'Bejelentkezés' } },
+  { path: '/register', component: RegisterComponent, meta: { tabTitle: 'Regisztráció' } },
+  { path: '/:pathMatch(.*)*', component: PageNotFoundView, meta: { tabTitle: 'Karbantartás alatt!' } }
+];
 
 // Declarations
-const Router = createRouter({ history: createWebHistory(), routes })
-const Application = createApp(App)
-const Pinia = createPinia()
+const router = createRouter({ history: createWebHistory(), routes });
+const app = createApp(App);
+const pinia = createPinia();
 
-Pinia
-.use(piniaPluginPersistedstate)
+pinia.use(piniaPluginPersistedstate);
 
-Router
-.beforeEach(( toPage, fromPage, nextFunc ) => {
-    document.title = `${ webPrefix } - ${ toPage['meta']['tabTitle'] }`
-    nextFunc()
-})
+router.beforeEach((to, from, next) => {
+  document.title = `${webPrefix} - ${to.meta.tabTitle}`;
+  next();
+});
 
-Application
-.use(Router)
-.use(Pinia)
-.mount('#app')
+app
+  .use(router)
+  .use(pinia)
+  .mount('#app');
+
+export { serverURL };

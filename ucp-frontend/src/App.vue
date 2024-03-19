@@ -13,36 +13,8 @@
 
 <script setup>
   // Modules Imports
-  import { ref, provide } from 'vue'
   import HeaderComponent from '@/Components/Header.vue'
   import FooterComponent from '@/Components/Footer.vue'
-
-  // Functions
-  function formatDate(dateString) {
-    if (!dateString) return null // If date not getted, return 'null'
-
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0') // Month number fix 2 digits
-    const day = date.getDate().toString().padStart(2, '0') // Day number fix 2 digits
-
-    return `${year}.${month}.${day}`
-  }
-
-  function formatCurrency(amount) {
-    if (!amount && amount !== 0) return null // If data is not getted, return 'null'
-
-    const formattedAmount = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0 // Minimum digits number
-    }).format(amount)
-
-    return formattedAmount.replace('$', '').trim() + ' $'
-  }
-
-  provide('formatDate', formatDate)
-  provide('formatCurrency', formatCurrency)
 </script>
 
 <style>
@@ -60,6 +32,7 @@
     font-family: "Inter", sans-serif;
   }
 
+  /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 5px;
   }
@@ -77,6 +50,7 @@
     background: #202020;
   }
 
+  /* This is the full app appearance */
   #app {
     background-color: rgba(10, 10, 10, 0.93);
 
@@ -93,16 +67,7 @@
       padding: 20px;
     }
 
-    hr {
-      width: 100%;
-      height: 2px;
-
-      margin-top: 10px;
-      margin-bottom: 10px;
-
-      background-color: rgb(255, 255, 255);
-    }
-
+    /* Utitlites Templates */
     input {
       padding: 10px;
       color: black;
@@ -114,13 +79,7 @@
       background-color: rgba(255, 255, 255, 0.9);
     }
 
-    /* Lista típusok */
-    .list-pointed {
-      margin-left: 20px;
-      margin-right: 0px;
-    }
-
-    /* Szöveg színek */
+    /* Text Colors */
     .tcolor-red {
       color: #f34b4b;
     }
@@ -141,7 +100,7 @@
       color: #d9d9d978;
     }
 
-    /* Szöveg Formázás */
+    /* Text Formatting */
     .tformat-bold {
       font-weight: 800;
     }
@@ -149,14 +108,9 @@
     .tformat-lightbold {
       font-weight: 600;
     }
-    
-    /* Szöveg méretezés */
-    .tsize-title {
-      font-size: 1rem;
-    }
 
     /* Animations */
     .anim-hoverscale { transition: all .2s ease-in-out; }
-    .anim-hoverscale:hover { transform: scale(1.2); }
+    .anim-hoverscale:hover { transform: scale(1.1); }
   }
 </style>

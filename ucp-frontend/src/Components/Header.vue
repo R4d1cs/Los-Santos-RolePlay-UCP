@@ -5,26 +5,14 @@
     <hr class="header-line" v-if="AccountStore.getLoggedUser">
 
     <ul class="header-links">
-      <router-link to="rules" v-if="AccountStore.getLoggedUser">
-        <li class="link-item">Szabályzatok</li>
-      </router-link>
-      <router-link to="premiumshop" v-if="AccountStore.getLoggedUser">
-        <li class="link-item tcolor-lightblue">Prémium Bolt</li>
-      </router-link>
-      <router-link to="tutorial" v-if="AccountStore.getLoggedUser">
-        <li class="link-item">Segédlet anyagok</li>
-      </router-link>
-      <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
-        <li class="link-item">Felhasználók kezelése</li>
-      </router-link>
-      <router-link to="discord">
-        <li class="link-item tcolor-blue">Csatlakozás</li>
-      </router-link>
-      <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'">
-        <li class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getLoggedUser.accountData.role + ')' : 'Bejelentkezés' }}</li>
-      </router-link>
+      <router-link to="rules" v-if="AccountStore.getLoggedUser" class="link-item">Szabályzatok</router-link>
+      <router-link to="premiumshop" v-if="AccountStore.getLoggedUser" class="link-item tcolor-lightblue">Prémium Bolt</router-link>
+      <router-link to="tutorial" v-if="AccountStore.getLoggedUser" class="link-item">Segédlet anyagok</router-link>
+      <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'" class="link-item">Felhasználók kezelése</router-link>
+      <router-link to="discord" class="link-item tcolor-blue">Csatlakozás</router-link>
+      <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'" class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</router-link>
 
-      <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="anim-hoverscale">-></h6>
+      <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="signOutBtn anim-hoverscale">Kilépés -></h6>
     </ul>
   </div>
 </template>
@@ -46,13 +34,22 @@
 
 <style lang="scss" scoped>
   .header-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
     min-height: 100px;
+
+    font-size: 0.8rem;
+    color: white;
 
     background-image: url('@/Assets/headerBG.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: black;
+    background-color: #0D0D0D;
 
     .server_logo-wrapper {
       position: absolute;
@@ -68,6 +65,16 @@
       background-repeat: no-repeat;
     }
 
+    .header-line {
+      position: absolute;
+      top: 0;
+
+      width: 100%;
+      height: 3px; 
+
+      background-color: rgb(255, 192, 120);
+    }
+
     .header-links {
       display: flex;
       flex-direction: row;
@@ -78,28 +85,10 @@
       right: 100px;
       top: 15px;
 
-      h6 {
-        margin-left: -7px;
-
-        font-size: 0.7rem !important;
-        color: white;
-        
-        border: 1.5px solid #ffc078b1;
-        border-radius: 3px;
-
-        padding: 0;
-        padding-left: 2px;
-
-        background-color: rgb(255, 192, 120);
-
-        opacity: 0.8;
-
-        cursor: pointer;
-      }
+      list-style: none;
 
       a {
         color: white;
-        list-style-type: none;
 
         .link-item {
           display: flex;
@@ -109,16 +98,22 @@
           font-size: 0.8rem;
         }
       }
-    }
 
-    .header-line {
-      margin: 0 !important; 
+      .signOutBtn {
+        text-align: center;
+        font-size: 0.7rem;
+        font-weight: normal;
+        
+        border: 1.5px solid #ffc078b1;
+        border-radius: 3px;
 
-      height: 3px !important; 
+        padding: 2px;
+        padding-left: 7px;
 
-      background-color: rgb(255, 192, 120) !important;
+        background-color: rgb(255, 192, 120);
 
-      opacity: 0.8;
+        cursor: pointer;
+      }
     }
   }
 </style>

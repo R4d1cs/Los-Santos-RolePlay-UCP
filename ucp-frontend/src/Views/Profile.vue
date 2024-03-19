@@ -81,22 +81,11 @@
 
 <script setup>
   // Modules Imports
-  import { inject } from 'vue'
   import { useAccountStore } from '@/Stores/AccountStore.js'
+  import { formatDate, formatCurrency, formatPlaytime } from '@/Utitilites/formatFuncs'
 
   // Declarations
   const AccountStore = useAccountStore()
-  const formatDate = inject('formatDate')
-  const formatCurrency = inject('formatCurrency')
-
-  function formatPlaytime(minutes) {
-    if (!minutes && minutes !== 0) return null; // Ha nincs adat, vagy null érték, visszaadjuk a 'null' értéket
-
-    const hours = Math.floor(minutes / 60); // Az órák számítása
-    const remainingMinutes = minutes % 60; // A maradék percek számítása
-
-    return `${hours} óra ${remainingMinutes} perc`
-  }
 </script>
 
 <style lang="scss" scoped>
@@ -149,9 +138,14 @@
           gap: 10px;
 
           font-size: 0.9rem;
+
+          padding: 5px 10px;
+          border-radius: 5px;
+          background-color: rgb(100, 100, 100);
         }
 
         .cards_context {
+          margin-top: 10px;
           font-size: 0.8rem;
           list-style: none;
 
@@ -175,7 +169,7 @@
             }
 
             &:last-child {
-              margin-bottom: 0;
+              margin-bottom: 5px;
             }
           }
         }
