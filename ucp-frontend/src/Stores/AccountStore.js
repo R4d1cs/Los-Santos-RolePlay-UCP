@@ -64,6 +64,22 @@ export const useAccountStore = defineStore('AccountStore', () => {
     }
   }
 
+  const getUserGroup = () => {
+    if (!getLoggedUser.value) {
+      return null
+    }
+
+    if (!getLoggedUser.value.accountData) {
+      return null
+    }
+
+    if (!getLoggedUser.value.accountData.role) {
+      return null
+    }
+
+    return getLoggedUser.value.accountData.role
+  }
+
   // Exports what we want to access in the future
   return {
     loggedUser,
@@ -73,6 +89,7 @@ export const useAccountStore = defineStore('AccountStore', () => {
     loginUser,
     logoutUser,
     registerUser,
-    getUserGroupName
+    getUserGroupName,
+    getUserGroup
   }
 }, { persist: true })

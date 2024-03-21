@@ -5,7 +5,7 @@
   </div>
 
   <div class="news-wrapper" v-if="newsDatas.length > 0">
-    <h3 class="tsize-title">Hírek</h3>
+    <h3>Hírek</h3>
     <div class="news-items">
       <div class="news-item" v-for="{ title, date, context } in newsDatas">
         <div class="news-date">{{ date }}</div>
@@ -14,6 +14,7 @@
 	    </div>
     </div>
   </div>
+
   <div class="news_rside-wrapper">
     <LoginComponent style="width: 100%;" />
 
@@ -45,30 +46,17 @@
   // Modules Imports
   import { ref, onMounted } from 'vue'
   import LoginComponent from '@/Components/Login'
-  import { serverURL } from '@/main'
+  import { useNewsStore } from '@/Stores/NewsStore.js'
+  import { useAccountStore } from '@/Stores/AccountStore.js'
 
   // Declarations
   const newsDatas = ref([])
-
-  const getNews = async () => {
-    try {
-      const responseData = await fetch(`${serverURL}/news`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const responseJson = await responseData.json()
-      return responseJson
-    } catch (err) {
-      console.error(`Error fetching "news" table! (Err: ${err})`)
-      throw new Error('Internal server error')
-    }
-  }
+  const NewsStore = useNewsStore()
+  const AccountStore = useAccountStore()
 
   // Fill newsDatas table with current news
   onMounted(async () => {
-    getNews().then(data => newsDatas.value = data)
+    NewsStore.getNews.then(data => newsDatas.value = data)
   })
 </script>
 
@@ -93,11 +81,6 @@
       border-radius: 50%;
       animation: spinAnimation 2s linear infinite;
     }
-  }
-
-  @keyframes spinAnimation {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
   }
 
   .news-wrapper {

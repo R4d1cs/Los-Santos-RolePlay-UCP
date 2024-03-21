@@ -112,5 +112,10 @@
     /* Animations */
     .anim-hoverscale { transition: all .2s ease-in-out; }
     .anim-hoverscale:hover { transform: scale(1.1); }
+
+    @keyframes spinAnimation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   }
 </style>
