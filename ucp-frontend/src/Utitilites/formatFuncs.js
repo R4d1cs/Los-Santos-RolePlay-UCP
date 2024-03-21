@@ -3,10 +3,12 @@ export function formatDate(dateString) {
 
   const date = new Date(dateString)
   const year = date.getFullYear()
-  const month = (date.getMonth() + 1).toString().padStart(2, '0') // Month number fix 2 digits
-  const day = date.getDate().toString().padStart(2, '0') // Day number fix 2 digits
+  const month = (date.getMonth() + 1).toString().padStart(2, '0') // Month number
+  const day = date.getDate().toString().padStart(2, '0') // Day number
+  const hour = date.getHours().toString().padStart(2, '0') // Hour number
+  const minutes = date.getMinutes().toString().padStart(2, '0') // Minutes number
 
-  return `${year}.${month}.${day}`
+  return `${year}.${month}.${day} ${hour}:${minutes}`
 }
 
 export function formatCurrency(amount) {

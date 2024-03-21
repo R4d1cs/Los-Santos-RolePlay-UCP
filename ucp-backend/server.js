@@ -44,6 +44,45 @@ expressApp.get('/API/news', (req, res) => {
 });
 
 // POST Endpoints
+expressApp.post('/API/news/:ID', (req, res) => {
+  const updateBody = req.body;
+  const updateDate = req.params.ID;
+
+  updateBody.context = updateBody.context.replaceAll(/\'/g, "\\'")
+
+  mysqlPool.query(`UPDATE news SET title = '${updateBody.title}', date = '${updateBody.date}', context = '${updateBody.context}' WHERE newsID = '${updateDate}'`, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(200).json(results);
+  });
+});
+
+expressApp.post('/API/news_delete/:ID', (req, res) => {
+  const deleteDate = req.params.ID;
+
+  mysqlPool.query(`DELETE FROM news WHERE newsID = '${deleteDate}'`, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(200).json(results);
+  });
+});
+
+expressApp.post('/API/news_create', (req, res) => {
+  const requestData = req.body
+
+  mysqlPool.query(`INSERT INTO news(title, date, context) VALUES ('${requestData.title}', '${requestData.date}', '${requestData.context}')`, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(200).json(results);
+  });
+});
+
 expressApp.post('/API/loginUser', async (req, res) => {
   const requestData = req.body;
 
@@ -85,34 +124,41 @@ expressApp.post('/API/registerUser', async (req, res) => {
   }
 });
 
+// expressApp.post('/API/uploadAvatar', async (req, res) => {
+//   const file = req.body;
+
+//   console.log(req)
+
+//   return file
+// });
 
 // Helper Functions
 async function getUserProfileData(accID) {
   return new Promise((resolve, reject) => {
-    mysqlPool.query(`SELECT * FROM accounts WHERE accID = '${accID}'`, (err, accountResults) => {
+    mysqlPool.query(`SELECT * FROM accounts WHERE accID = '${accID}'`, async (err, accountResults) => {
       if (err) reject(err);
-      mysqlPool.query(`SELECT * FROM characters WHERE accID = '${accountResults[0].accID}'`, (err, charResults) => {
-        if (err) reject(err);
-        const userObject = {
-          accountData: {
-            accID: accountResults[0].accID,
-            username: accountResults[0].username,
-            email: accountResults[0].email,
-            role: accountResults[0].role,
-            updatedAt: accountResults[0].updatedAt,
-            createdAt: accountResults[0].createdAt
-          },
-          charData: charResults.length > 0 ? {
-            charID: charResults[0].charID,
-            charName: charResults[0].charName,
-            gameTime: charResults[0].gameTime,
-            cashBalance: charResults[0].cashBalance,
-            bankBalance: charResults[0].bankBalance,
-            updatedAt: charResults[0].updatedAt
-          } : null
-        };
-        resolve(userObject);
-      });
+
+      const charResults = await getUserCharacters(accID);
+
+      const userObject = {
+        accountData: {
+          accID: accountResults[0].accID,
+          username: accountResults[0].username,
+          email: accountResults[0].email,
+          role: accountResults[0].role,
+          updatedAt: accountResults[0].updatedAt,
+          createdAt: accountResults[0].createdAt
+        },
+        charData: charResults.length > 0 ? {
+          charID: charResults[0].charID,
+          charName: charResults[0].charName,
+          gameTime: charResults[0].gameTime,
+          cashBalance: charResults[0].cashBalance,
+          bankBalance: charResults[0].bankBalance,
+          updatedAt: charResults[0].updatedAt
+        } : null
+      };
+      resolve(userObject);
     });
   });
 }

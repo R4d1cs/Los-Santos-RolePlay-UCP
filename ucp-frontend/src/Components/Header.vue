@@ -9,7 +9,7 @@
       <router-link to="premiumshop" v-if="AccountStore.getLoggedUser" class="link-item tcolor-lightblue">Prémium Bolt</router-link>
       <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'" class="link-item">Felhasználók kezelése</router-link>
       <router-link to="discord" class="link-item tcolor-blue">Csatlakozás</router-link>
-      <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'" class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</router-link>
+      <router-link :to="AccountStore.getLoggedUser ?? 'login'" class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</router-link>
 
       <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="signOutBtn anim-hoverscale">Kilépés -></h6>
     </ul>
@@ -28,6 +28,7 @@
   const signOut = () => {
     AccountStore.logoutUser()
     routerApp.push('/news')
+    location.reload()
   }
 </script>
 

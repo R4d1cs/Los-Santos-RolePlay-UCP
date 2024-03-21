@@ -11,7 +11,6 @@ import PageNotFoundView from '@/Views/PageNotFound.vue';
 import NewsView from '@/Views/News.vue';
 import RulesView from '@/Views/Rules.vue';
 import DiscordView from '@/Views/Discord.vue';
-import ProfileView from '@/Views/Profile.vue';
 
 import LoginComponent from '@/Components/Login.vue';
 import RegisterComponent from '@/Components/Register.vue';
@@ -25,7 +24,6 @@ const routes = [
   { path: '/news', alias: ['/', '/home'], component: NewsView, meta: { tabTitle: 'Hírek' } },
   { path: '/rules', component: RulesView, meta: { tabTitle: 'Szabályzat' } },
   { path: '/discord', component: DiscordView, meta: { tabTitle: 'Discord Csatlakozás' } },
-  { path: '/profile', component: ProfileView, meta: { tabTitle: 'Profilod' } },
   { path: '/login', component: LoginComponent, meta: { tabTitle: 'Bejelentkezés' } },
   { path: '/register', component: RegisterComponent, meta: { tabTitle: 'Regisztráció' } },
   { path: '/:pathMatch(.*)*', component: PageNotFoundView, meta: { tabTitle: 'Karbantartás alatt!' } }

@@ -80,6 +80,24 @@ export const useAccountStore = defineStore('AccountStore', () => {
     return getLoggedUser.value.accountData.role
   }
 
+  // const uploadAvatar = async (formData) => {
+  //   try {
+  //     const responseData = await fetch(`${serverURL}/uploadAvatar`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data'
+  //       },
+  //       body: formData
+  //     })
+  //     const responseJson = await responseData.json()
+  //     console.log(responseJson)
+  //     return responseJson
+  //   } catch (err) {
+  //     console.error(`Error fetching "accounts" table! (Err: ${err})`)
+  //     throw new Error('Internal server error')
+  //   }
+  // }
+
   // Exports what we want to access in the future
   return {
     loggedUser,
@@ -89,7 +107,9 @@ export const useAccountStore = defineStore('AccountStore', () => {
     loginUser,
     logoutUser,
     registerUser,
+
     getUserGroupName,
-    getUserGroup
+    getUserGroup,
+    //uploadAvatar
   }
 }, { persist: true })

@@ -1,22 +1,19 @@
 <template>
-  <div class="loader-wrapper" v-if="newsDatas.length == 0">
-    <div class="spinner"></div>
-    <span>Hírek betöltése...</span>
-  </div>
+  <div class="news-wrapper">
+    <h3>Hírek <input type="button" @click="createNews()" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getUserGroup() == 'admin'"></h3>
+    <div class="loader-wrapper" v-if="newsDatas.length == 0">
+      <div class="spinner"></div>
+      <span>Hírek betöltése...</span>
+    </div>
 
-  <div class="news-wrapper" v-if="newsDatas.length > 0">
-    <h3>Hírek</h3>
-    <div class="news-items">
-      <div class="news-item" v-for="{ title, date, context } in newsDatas">
-        <div class="news-date">{{ date }}</div>
-        <div class="news-title">{{ title }}</div>
-        <div class="news-context" v-html="context"></div>
-	    </div>
+    <div class="news-items" v-if="newsDatas.length > 0">
+      <NewsItemComponent v-for="item in newsDatas" :data="item" />
     </div>
   </div>
 
   <div class="news_rside-wrapper">
     <LoginComponent style="width: 100%;" />
+    <ProfileComponent style="width: 100%;" />
 
     <div class="cards_item">
       <div class="cards_title">Minimum rendszerkövetelmények:</div>
@@ -44,8 +41,12 @@
 
 <script setup>
   // Modules Imports
-  import { ref, onMounted } from 'vue'
+  import { ref } from 'vue'
   import LoginComponent from '@/Components/Login'
+  import ProfileComponent from '@/Components/Profile.vue';
+  import NewsItemComponent from '@/Components/NewsItem.vue';
+  import { serverURL } from '@/main'
+
   import { useNewsStore } from '@/Stores/NewsStore.js'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
@@ -54,39 +55,36 @@
   const NewsStore = useNewsStore()
   const AccountStore = useAccountStore()
 
+  // Functions
+  const createNews = async () => {
+    console.log('Új hír!')
+    // try {
+    //   await fetch(`${serverURL}/news_create`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ title: 'Hír név', date: '2024-20-0', context: 'Kontextus' })
+    //   }).then(() => {
+    //     location.reload();
+    //   })
+    // } catch (err) {
+    //   console.error(`Error fetching "news" table! (Err: ${err})`)
+    //   throw new Error('Internal server error')
+    // }
+  }
+
   // Fill newsDatas table with current news
-  onMounted(async () => {
+  setTimeout(() => {
     NewsStore.getNews.then(data => newsDatas.value = data)
-  })
+  }, 400)
 </script>
 
 <style lang="scss" scoped>
-  .loader-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-
-    width: 850px;
-
-    color: white;
-    font-size: 0.8rem;
-
-    .spinner {
-      width: 30px;
-      height: 30px;
-
-      border: 3px solid #f3f3f3; /* Light grey */
-      border-top: 3px solid rgb(255, 192, 120); /* Blue */
-      border-radius: 50%;
-      animation: spinAnimation 2s linear infinite;
-    }
-  }
-
   .news-wrapper {
     display: flex;
     flex-direction: column;
-
+    justify-content: space-between;
     align-self: flex-start;
 
     width: 850px;
@@ -101,43 +99,54 @@
       margin-top: 10px;
 
       width: 100%;
+    }
 
-      .news-item {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        text-align: start;
 
-        padding: 10px;
-        border-radius: 5px;
+    h3 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
 
-        background-color: #171717;
+      .createBtn {
+        padding: 5px 7px !important;
 
-        .news-date {
-          color: black;
-          font-size: 0.6rem;
-          font-weight: 500;
+        position: relative;
 
-          padding: 3px;
-          border-radius: 5px;
+        color: white !important;
 
-          background-color: #ffffff;
-        }
-
-        .news-title {
-          margin-top: 15px;
-          font-size: 0.9rem;
-        }
-
-        .news-context {
-          margin-top: 30px;
-
-          font-size: 0.8rem;
-          text-shadow: 1px 2px #000000;
-        }
+        background-color: rgb(81, 205, 79) !important;
       }
     }
-  }
+
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      width: 850px;
+      height: 100vh;
+
+      color: white;
+      font-size: 0.8rem;
+
+      .spinner {
+        width: 30px;
+        height: 30px;
+
+        border: 3px solid #f3f3f3; /* Light grey */
+        border-top: 3px solid rgb(255, 192, 120); /* Blue */
+        border-radius: 50%;
+        animation: spinAnimation 2s linear infinite;
+      }
+
+      @keyframes spinAnimation {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    }
+  } 
 
   .news_rside-wrapper {
     display: flex;
@@ -169,7 +178,7 @@
       }
 
       .cards_context {
-        margin-top: 25px;
+        margin-top: 10px;
 
         font-size: 0.8rem;
         text-shadow: 1px 2px #000000;
