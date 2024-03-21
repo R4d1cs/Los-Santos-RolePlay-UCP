@@ -66,6 +66,7 @@ export const useAccountStore = defineStore('AccountStore', () => {
 
   // Exports what we want to access in the future
   return {
+    loggedUser,
     setLoggedUser,
     getLoggedUser,
     
