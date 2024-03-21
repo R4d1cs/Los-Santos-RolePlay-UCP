@@ -1,4 +1,9 @@
 <template>
+  <div class="loader-wrapper" v-if="newsDatas.length == 0">
+    <div class="spinner"></div>
+    <span>Hírek betöltése...</span>
+  </div>
+
   <div class="news-wrapper" v-if="newsDatas.length > 0">
     <h3 class="tsize-title">Hírek</h3>
     <div class="news-items">
@@ -47,23 +52,50 @@
 
   // Fill newsDatas table with current news
   onMounted(async () => {
-    try {
-      const responseData = await fetch(`${serverURL}/news`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const responseJson = await responseData.json()
-      newsDatas.value = responseJson
-    } catch (err) {
-      console.error(`Error fetching "news" table! (Err: ${err})`)
-      throw new Error('Internal server error')
-    }
+    // try {
+    //   const responseData = await fetch(`${serverURL}/news`, {
+    //     method: 'GET',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     }
+    //   })
+    //   const responseJson = await responseData.json()
+    //   newsDatas.value = responseJson
+    // } catch (err) {
+    //   console.error(`Error fetching "news" table! (Err: ${err})`)
+    //   throw new Error('Internal server error')
+    // }
   })
 </script>
 
 <style lang="scss" scoped>
+  .loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    width: 850px;
+
+    color: white;
+    font-size: 0.8rem;
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+
+      border: 3px solid #f3f3f3; /* Light grey */
+      border-top: 3px solid rgb(255, 192, 120); /* Blue */
+      border-radius: 50%;
+      animation: spinAnimation 2s linear infinite;
+    }
+  }
+
+  @keyframes spinAnimation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   .news-wrapper {
     display: flex;
     flex-direction: column;
