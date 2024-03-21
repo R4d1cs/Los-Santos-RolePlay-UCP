@@ -50,17 +50,17 @@ expressApp.post('/API/loginUser', async (req, res) => {
   try {
     const accountResults = await getUserAccount(requestData.username);
     if (accountResults.length === 0)
-      return res.status(401).json({ message: 'No such user exists in the system!' });
+      return res.status(401).json({ message: 'Nincs ilyen felhasználó a rendszerben!' });
 
     const verifyHashedPassword = await argon2.verify(accountResults[0].password, requestData.password);
     if (!verifyHashedPassword)
-      return res.status(401).json({ message: 'Incorrect password provided!' });
+      return res.status(401).json({ message: 'Érvénytelen jelszó!' });
 
     const userObject = await getUserProfileData(accountResults[0].accID);
-    return res.status(200).json({ message: 'Login successful!', data: userObject });
+    return res.status(200).json({ message: 'Sikeres belépés!', data: userObject });
   } catch (error) {
     console.error('Error logging in user:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Rendszer hiba történt!' });
   }
 });
 
@@ -70,18 +70,18 @@ expressApp.post('/API/registerUser', async (req, res) => {
   try {
     const existingUsername = await checkExistingUser('username', requestData.username);
     if (existingUsername)
-      return res.status(401).json({ message: 'User already exists!' });
+      return res.status(401).json({ message: 'Ilyen felhasználó már van!' });
 
     const existingEmail = await checkExistingUser('email', requestData.email);
     if (existingEmail)
-      return res.status(401).json({ message: 'User with this email already exists!' });
+      return res.status(401).json({ message: 'Ilyen felhasználü már van ezzel az e-mail címmel!' });
 
     const hashedPassword = await argon2.hash(requestData.password);
     await registerNewUser(requestData.username, hashedPassword, requestData.email);
-    return res.status(200).json({ message: 'Registration successful!' });
+    return res.status(200).json({ message: 'Sikeres regisztráció!' });
   } catch (error) {
     console.error('Error registering user:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Rendszer hiba történt!' });
   }
 });
 
