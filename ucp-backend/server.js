@@ -34,7 +34,7 @@ mysqlPool.getConnection((err, conn) => {
 
 // GET Endpoints
 expressApp.get('/API/news', (req, res) => {
-  mysqlPool.query('SELECT * FROM news', (err, results) => {
+  mysqlPool.query('SELECT * FROM news ORDER BY date DESC', (err, results) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
