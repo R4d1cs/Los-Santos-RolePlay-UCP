@@ -7,7 +7,6 @@
     <ul class="header-links">
       <router-link to="rules" v-if="AccountStore.getLoggedUser" class="link-item">Szabályzatok</router-link>
       <router-link to="premiumshop" v-if="AccountStore.getLoggedUser" class="link-item tcolor-lightblue">Prémium Bolt</router-link>
-      <router-link to="tutorial" v-if="AccountStore.getLoggedUser" class="link-item">Segédlet anyagok</router-link>
       <router-link to="usercontol" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'" class="link-item">Felhasználók kezelése</router-link>
       <router-link to="discord" class="link-item tcolor-blue">Csatlakozás</router-link>
       <router-link :to=" AccountStore.getLoggedUser ? 'profile' : 'login'" class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</router-link>
