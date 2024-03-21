@@ -50,21 +50,25 @@
   // Declarations
   const newsDatas = ref([])
 
+  const getNews = async () => {
+    try {
+      const responseData = await fetch(`${serverURL}/news`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const responseJson = await responseData.json()
+      return responseJson
+    } catch (err) {
+      console.error(`Error fetching "news" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
+  }
+
   // Fill newsDatas table with current news
   onMounted(async () => {
-    // try {
-    //   const responseData = await fetch(`${serverURL}/news`, {
-    //     method: 'GET',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     }
-    //   })
-    //   const responseJson = await responseData.json()
-    //   newsDatas.value = responseJson
-    // } catch (err) {
-    //   console.error(`Error fetching "news" table! (Err: ${err})`)
-    //   throw new Error('Internal server error')
-    // }
+    getNews().then(data => newsDatas.value = data)
   })
 </script>
 
