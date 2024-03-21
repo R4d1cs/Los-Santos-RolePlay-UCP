@@ -95,8 +95,15 @@ expressApp.post('/API/loginUser', async (req, res) => {
     if (!verifyHashedPassword)
       return res.status(401).json({ message: 'Érvénytelen jelszó!' });
 
-    const userObject = await getUserProfileData(accountResults[0].accID);
-    return res.status(200).json({ message: 'Sikeres belépés!', data: userObject });
+      mysqlPool.query(`UPDATE accounts SET updatedAt = NOW() WHERE accID = '${accountResults[0].accID}'`, async (err, results) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: err.message });
+        }
+
+        const userObject = await getUserProfileData(accountResults[0].accID);
+        return res.status(200).json({ message: 'Sikeres belépés!', data: userObject });
+      });
   } catch (error) {
     console.error('Error logging in user:', error);
     return res.status(500).json({ error: 'Rendszer hiba történt!' });

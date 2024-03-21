@@ -9,7 +9,7 @@
           <li><span class="title">Account ID </span><span class="value">{{ AccountStore.getLoggedUser.accountData.accID || 'Nincs adat...' }}</span></li>
           <li><span class="title">E-Mail cím </span><span class="value">{{ AccountStore.getLoggedUser.accountData.email || 'Nincs adat...' }}</span></li>
           <li><span class="title">Rangod </span><span class="value">{{ AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) || 'Nincs adat...' }}</span></li>
-          <li><span class="title">Utoljára online </span><span class="value">{{ formatDate(AccountStore.getLoggedUser.accountData.updatedAt) || 'Nincs adat...' }}</span></li>
+          <li><span class="title">Utoljára bejelentkezve </span><span class="value">{{ formatDate(AccountStore.getLoggedUser.accountData.updatedAt) || 'Nincs adat...' }}</span></li>
           <li><span class="title">Regisztrálva </span><span class="value">{{ formatDate(AccountStore.getLoggedUser.accountData.createdAt) || 'Nincs adat...' }}</span></li>
         </ul>
       </div>
