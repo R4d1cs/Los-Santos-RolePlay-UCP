@@ -1,12 +1,25 @@
 <template>
   <div class="news-wrapper">
-    <h3>Hírek <input type="button" @click="createNews()" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getUserGroup() == 'admin'"></h3>
+    <h3>Hírek <input type="button" @click="toggleCreatePanel(true)" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getUserGroup() == 'admin'"></h3>
     <div class="loader-wrapper" v-if="newsDatas.length == 0">
       <div class="spinner"></div>
       <span>Hírek betöltése...</span>
     </div>
 
     <div class="news-items" v-if="newsDatas.length > 0">
+      <div class="news-item" v-if="showCreatePanel">
+        <div class="news-date">
+          <input type="date" v-model="date" class="value">
+        </div>
+        <input type="text" class="news-title" v-model="title" placeholder="Új hírdetés címe">
+        <textarea class="news-context" rows="10" v-model="context" placeholder="Hírdetés szövege... (Formázható, HTML tagekkel.)"></textarea>
+        <br>
+        <div class="row">
+          <input type="button" @click="saveNewNews()" class="saveBtn" value="Mentés" style="margin-right: 5px;">
+          <input type="button" @click="toggleCreatePanel(false)" class="deleteBtn" value="Mégsem">
+        </div>
+      </div>
+
       <NewsItemComponent v-for="item in newsDatas" :data="item" />
     </div>
   </div>
@@ -43,35 +56,56 @@
   // Modules Imports
   import { ref } from 'vue'
   import LoginComponent from '@/Components/Login'
-  import ProfileComponent from '@/Components/Profile.vue';
-  import NewsItemComponent from '@/Components/NewsItem.vue';
-  import { serverURL } from '@/main'
+  import ProfileComponent from '@/Components/Profile.vue'
+  import NewsItemComponent from '@/Components/NewsItem.vue'
 
   import { useNewsStore } from '@/Stores/NewsStore.js'
   import { useAccountStore } from '@/Stores/AccountStore.js'
+  import { serverURL } from '@/main'
 
   // Declarations
   const newsDatas = ref([])
+  const showCreatePanel = ref(false)
+
+  const date = ref(null)
+  const title = ref(null)
+  const context = ref(null)
+
   const NewsStore = useNewsStore()
   const AccountStore = useAccountStore()
 
   // Functions
-  const createNews = async () => {
-    console.log('Új hír!')
-    // try {
-    //   await fetch(`${serverURL}/news_create`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ title: 'Hír név', date: '2024-20-0', context: 'Kontextus' })
-    //   }).then(() => {
-    //     location.reload();
-    //   })
-    // } catch (err) {
-    //   console.error(`Error fetching "news" table! (Err: ${err})`)
-    //   throw new Error('Internal server error')
-    // }
+  const toggleCreatePanel = async (bool) => {
+    showCreatePanel.value = bool
+  }
+
+  const saveNewNews = async () => {
+    if (!title.value) {
+      return alert('Írj be hirdetés címet!')
+    }
+
+    if (!date.value) {
+      return alert('Írj be hirdetés dátumot!')
+    }
+
+    if (!context.value) {
+      return alert('Írj be hirdetés szöveget!')
+    }
+
+    try {
+      await fetch(`${serverURL}/news_create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: title.value, date: date.value, context: context.value })
+      }).then(() => {
+        location.reload();
+      })
+    } catch (err) {
+      console.error(`Error fetching "news" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
   }
 
   // Fill newsDatas table with current news
@@ -99,6 +133,77 @@
       margin-top: 10px;
 
       width: 100%;
+
+      .news-item {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        text-align: start;
+
+        padding: 10px;
+        border-radius: 5px;
+
+        background-color: #171717;
+
+        .news-date {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+
+          width: 100%;
+
+          .value {
+            margin-right: auto;
+            color: black;
+
+            font-size: 0.6rem !important;
+            font-weight: 500 !important;
+
+            padding: 3px !important;
+            border-radius: 5px !important;
+
+            background-color: white;
+          }
+        }
+
+        .editBtn {
+          background-color: rgb(236, 195, 30) !important;
+        }
+
+        .saveBtn {
+          background-color: rgb(47, 188, 108) !important;
+        }
+
+        .deleteBtn {
+          background-color: rgb(188, 47, 47) !important;
+        }
+
+        .editBtn, .saveBtn, .deleteBtn {
+          padding: 5px 7px !important;
+
+          position: relative;
+
+          color: white !important;
+        }
+
+        .news-title {
+          width: 100%;
+
+          margin-top: 15px;
+          font-size: 0.9rem;
+        }
+
+        .news-context {
+          width: 100%;
+
+          margin-top: 20px;
+
+          font-size: 0.8rem;
+          line-height: 1.1rem;
+          text-align: justify;
+        }
+      }
     }
 
 
@@ -185,6 +290,11 @@
 
         padding: 0px 20px;
       }
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
     }
   }
 </style>
