@@ -15,7 +15,7 @@
         <textarea class="news-context" rows="10" v-model="context" placeholder="Hírdetés szövege... (Formázható, HTML tagekkel.)"></textarea>
         <br>
         <div class="row">
-          <input type="button" @click="saveNewNews()" class="saveBtn" value="Mentés" style="margin-right: 5px;">
+          <input type="button" @click="saveNewNews()" class="saveBtn" value="Mentés" style="margin-right: 10px;">
           <input type="button" @click="toggleCreatePanel(false)" class="deleteBtn" value="Mégsem">
         </div>
       </div>
