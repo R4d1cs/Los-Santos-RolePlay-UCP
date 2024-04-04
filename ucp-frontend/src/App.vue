@@ -15,6 +15,33 @@
   // Modules Imports
   import HeaderComponent from '@/Components/Header.vue'
   import FooterComponent from '@/Components/Footer.vue'
+  import { useAccountStore } from '@/Stores/AccountStore.js'
+  import { serverURL } from '@/main'
+
+  // Declarations
+  const AccountStore = useAccountStore()
+
+  setInterval(async () => {
+    if (!AccountStore.getLoggedUser) return null
+
+    if (!AccountStore.getLoggedUser.accountData) return null
+
+    if (!AccountStore.getLoggedUser.accountData.accID) return null
+
+    try {
+      const responseData = await fetch(`${serverURL}/getUserData/${AccountStore.getLoggedUser.accountData.accID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const responseJson = await responseData.json()
+      AccountStore.setLoggedUser(responseJson.data)
+    } catch (err) {
+      console.error(`Error fetching "accounts" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
+  }, 3000)
 </script>
 
 <style>

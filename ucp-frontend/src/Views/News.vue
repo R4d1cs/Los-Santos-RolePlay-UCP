@@ -1,6 +1,6 @@
 <template>
   <div class="news-wrapper">
-    <h3>Hírek <input type="button" @click="toggleCreatePanel(true)" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getUserGroup() == 'admin'"></h3>
+    <h3>Hírek <input type="button" @click="toggleCreatePanel(true)" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'"></h3>
     <div class="loader-wrapper" v-if="newsDatas.length == 0">
       <div class="spinner"></div>
       <span>Hírek betöltése...</span>

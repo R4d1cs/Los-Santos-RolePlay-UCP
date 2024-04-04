@@ -131,6 +131,18 @@ expressApp.post('/API/registerUser', async (req, res) => {
   }
 });
 
+expressApp.post('/API/getUserData/:ID', async (req, res) => {
+  const requestUserID = req.params.ID;
+
+  try {
+    const userObject = await getUserProfileData(requestUserID);
+    return res.status(200).json({ message: 'Sikeres adat lekérés!', data: userObject });
+  } catch (error) {
+    console.error('Error getting data from user:', error);
+    return res.status(500).json({ error: 'Rendszer hiba történt!' });
+  }
+});
+
 // expressApp.post('/API/uploadAvatar', async (req, res) => {
 //   const file = req.body;
 
@@ -165,6 +177,7 @@ async function getUserProfileData(accID) {
           updatedAt: charResults[0].updatedAt
         } : null
       };
+
       resolve(userObject);
     });
   });
@@ -174,6 +187,7 @@ async function getUserAccount(username) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(`SELECT * FROM accounts WHERE BINARY username = '${username}'`, (err, results) => {
       if (err) reject(err);
+
       resolve(results);
     });
   });
@@ -183,6 +197,7 @@ async function getUserCharacters(accID) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(`SELECT * FROM characters WHERE accID = '${accID}'`, (err, results) => {
       if (err) reject(err);
+
       resolve(results);
     });
   });
@@ -192,6 +207,7 @@ async function checkExistingUser(field, value) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(`SELECT ${field} FROM accounts WHERE ${field} = '${value}'`, (err, results) => {
       if (err) reject(err);
+
       resolve(results.length > 0);
     });
   });
@@ -201,6 +217,7 @@ async function registerNewUser(username, hashedPassword, email) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(`INSERT INTO accounts (username, password, email) VALUES ('${username}', '${hashedPassword}', '${email}')`, (err) => {
       if (err) reject(err);
+      
       resolve();
     });
   });

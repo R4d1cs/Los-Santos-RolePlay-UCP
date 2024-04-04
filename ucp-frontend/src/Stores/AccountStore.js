@@ -64,22 +64,6 @@ export const useAccountStore = defineStore('AccountStore', () => {
     }
   }
 
-  const getUserGroup = () => {
-    if (!getLoggedUser.value) {
-      return null
-    }
-
-    if (!getLoggedUser.value.accountData) {
-      return null
-    }
-
-    if (!getLoggedUser.value.accountData.role) {
-      return null
-    }
-
-    return getLoggedUser.value.accountData.role
-  }
-
   // const uploadAvatar = async (formData) => {
   //   try {
   //     const responseData = await fetch(`${serverURL}/uploadAvatar`, {
@@ -109,7 +93,6 @@ export const useAccountStore = defineStore('AccountStore', () => {
     registerUser,
 
     getUserGroupName,
-    getUserGroup,
     //uploadAvatar
   }
 }, { persist: true })

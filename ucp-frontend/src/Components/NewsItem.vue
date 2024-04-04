@@ -4,8 +4,8 @@
       <span class="value" v-if="!editable">{{ date || 'Nincs adat...' }}</span>
       <input type="date" v-model="date" v-if="editable" class="value">
 
-      <input type="button" @click="toggleEditMode()" :class="!editable ? 'editBtn' : 'saveBtn'" :value="editable ? 'Mentés' : 'Szerkesztés'" v-if="AccountStore.getUserGroup() == 'admin'">
-      <input type="button" @click="deleteNews()" class="deleteBtn" value="Törlés" v-if="AccountStore.getUserGroup() == 'admin' && !editable">
+      <input type="button" @click="toggleEditMode()" :class="!editable ? 'editBtn' : 'saveBtn'" :value="editable ? 'Mentés' : 'Szerkesztés'" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
+      <input type="button" @click="deleteNews()" class="deleteBtn" value="Törlés" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin' && !editable">
     </div>
     <div class="news-title" v-if="!editable" v-html="title || 'Nincs adat...'"></div>
     <input type="text" class="news-title" v-model="title" v-if="editable">
