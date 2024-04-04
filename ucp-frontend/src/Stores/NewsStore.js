@@ -4,9 +4,6 @@ import { defineStore } from 'pinia'
 import { serverURL } from '@/main'
 
 export const useNewsStore = defineStore('NewsStore', () => {
-  // DATA/STATE
-  const allNews = ref(null)
-
   // COMPUTED/GETTERS
   const getNews = computed(async () => {
     try {
@@ -23,12 +20,9 @@ export const useNewsStore = defineStore('NewsStore', () => {
       throw new Error('Internal server error')
     }
   })
-
-  // Functions
-
+  
   // Exports what we want to access in the future
   return {
-    allNews,
     getNews
   }
 }, { persist: true })
