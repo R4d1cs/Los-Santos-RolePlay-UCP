@@ -1,26 +1,32 @@
 <template>
   <div class="usermanagment-wrapper" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
     <h3 class="tsize-title">Felhasználók kezelése</h3>
-    <table>
-      <thead>
-        <th>AccountID</th>
-        <th>Felhasználónév</th>
-        <th>E-Mail cím</th>
-        <th>Jogosultság</th>
-        <th>Utoljára bejelentkezve</th>
-        <th>Regisztráció időpontja</th>
-      </thead>
-      <tbody>
-        <tr v-for="user in usersDatas">
-          <td>{{ user.accID }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ AccountStore.getUserGroupName(user.role) }}</td>
-          <td>{{ formatDate(user.updatedAt) }}</td>
-          <td>{{ formatDate(user.createdAt) }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="loader-wrapper" v-if="usersDatas.length == 0">
+      <div class="spinner"></div>
+      <span>Felhasználók betöltése...</span>
+    </div>
+    <div class="ctable">
+      <table v-if="usersDatas.length > 0">
+        <thead>
+          <th>AccountID</th>
+          <th>Felhasználónév</th>
+          <th>E-Mail cím</th>
+          <th>Jogosultság</th>
+          <th>Utoljára bejelentkezve</th>
+          <th>Regisztráció időpontja</th>
+        </thead>
+        <tbody>
+          <tr v-for="user in usersDatas">
+            <td>{{ user.accID }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ AccountStore.getUserGroupName(user.role) }}</td>
+            <td>{{ formatDate(user.updatedAt) }}</td>
+            <td>{{ formatDate(user.createdAt) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -69,18 +75,86 @@
 
     color: white;
 
-    thead {
-      background-color: rgb(255, 255, 255);
-      color: black;
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
 
-      display: table-header-group;
-      vertical-align: middle;
-      border-color: inherit;
+      height: 100vh;
 
-      border: 10px solid blue;
+      color: white;
+      font-size: 0.8rem;
 
-      th {
-        padding: 10px 5px;
+      .spinner {
+        width: 30px;
+        height: 30px;
+
+        border: 3px solid #f3f3f3; /* Light grey */
+        border-top: 3px solid rgb(255, 192, 120); /* Blue */
+        border-radius: 50%;
+        animation: spinAnimation 2s linear infinite;
+      }
+
+      @keyframes spinAnimation {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    }
+
+    .ctable {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: rgb(40, 40, 40);
+
+      table {
+        width: 100%;
+        border-style: hidden;
+        text-align: center;
+        border-spacing: 0px 5px;
+
+        th, td {
+          padding: 5px 10px;
+        }
+
+        thead {
+          background-color: #fff;
+          color: black;
+
+          th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+          }
+
+          th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+          }
+          
+          th {
+            background-color: #fff;
+            border: 0px solid black;
+          }
+        }
+
+        tbody {
+          td:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            text-align: left;
+          }
+
+          td:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+          }
+          
+          td {
+            background-color: rgba(75, 204, 255, 0.558);
+            border: 0px solid black;
+          }
+        }
       }
     }
   }

@@ -44,7 +44,7 @@ expressApp.get('/API/news', (req, res) => {
 });
 
 expressApp.get('/API/users', (req, res) => {
-  mysqlPool.query('SELECT * FROM accounts ORDER BY username', (err, results) => {
+  mysqlPool.query('SELECT * FROM accounts WHERE role NOT LIKE "admin" ORDER BY username', (err, results) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: err.message });
