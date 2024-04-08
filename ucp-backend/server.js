@@ -43,6 +43,16 @@ expressApp.get('/API/news', (req, res) => {
   });
 });
 
+expressApp.get('/API/users', (req, res) => {
+  mysqlPool.query('SELECT * FROM accounts ORDER BY username', (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(200).json(results);
+  });
+});
+
 // POST Endpoints
 expressApp.post('/API/news/:ID', (req, res) => {
   const updateBody = req.body;
@@ -155,30 +165,32 @@ expressApp.post('/API/getUserData/:ID', async (req, res) => {
 async function getUserProfileData(accID) {
   return new Promise((resolve, reject) => {
     mysqlPool.query(`SELECT * FROM accounts WHERE accID = '${accID}'`, async (err, accountResults) => {
-      if (err) reject(err);
+      if (err || accountResults.length === 0) {
+        reject(err);
+      } else {
+        const charResults = await getUserCharacters(accID);
 
-      const charResults = await getUserCharacters(accID);
+        const userObject = {
+          accountData: {
+            accID: accountResults[0].accID,
+            username: accountResults[0].username,
+            email: accountResults[0].email,
+            role: accountResults[0].role,
+            updatedAt: accountResults[0].updatedAt,
+            createdAt: accountResults[0].createdAt
+          },
+          charData: charResults.length > 0 ? {
+            charID: charResults[0].charID,
+            charName: charResults[0].charName,
+            gameTime: charResults[0].gameTime,
+            cashBalance: charResults[0].cashBalance,
+            bankBalance: charResults[0].bankBalance,
+            updatedAt: charResults[0].updatedAt
+          } : null
+        };
 
-      const userObject = {
-        accountData: {
-          accID: accountResults[0].accID,
-          username: accountResults[0].username,
-          email: accountResults[0].email,
-          role: accountResults[0].role,
-          updatedAt: accountResults[0].updatedAt,
-          createdAt: accountResults[0].createdAt
-        },
-        charData: charResults.length > 0 ? {
-          charID: charResults[0].charID,
-          charName: charResults[0].charName,
-          gameTime: charResults[0].gameTime,
-          cashBalance: charResults[0].cashBalance,
-          bankBalance: charResults[0].bankBalance,
-          updatedAt: charResults[0].updatedAt
-        } : null
-      };
-
-      resolve(userObject);
+        resolve(userObject);
+      }
     });
   });
 }
