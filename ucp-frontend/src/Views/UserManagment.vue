@@ -14,6 +14,7 @@
           <th>Jogosultság</th>
           <th>Utoljára bejelentkezve</th>
           <th>Regisztráció időpontja</th>
+          <th>Műveletek</th>
         </thead>
         <tbody>
           <tr v-for="user in usersDatas">
@@ -23,6 +24,7 @@
             <td>{{ AccountStore.getUserGroupName(user.role) }}</td>
             <td>{{ formatDate(user.updatedAt) }}</td>
             <td>{{ formatDate(user.createdAt) }}</td>
+            <td><input type="button" @click="deleteUser(user.accID)" class="deleteBtn" value="Törlés"></td>
           </tr>
         </tbody>
       </table>
@@ -44,6 +46,27 @@
 
   const AccountStore = useAccountStore()
 
+  // Functions
+  const deleteUser = async (accID) => {
+    try {
+      const responseData = await fetch(`${serverURL}/user_delete/${accID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const responseJson = await responseData.json()
+
+      if (responseJson.affectedRows == 0) return alert('Sikertelen felhasználó törlés.')
+
+      alert('Sikeres felhasználó törlés!')
+      location.reload()
+    } catch (err) {
+      console.error(`Error fetching "news" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
+  }
+
   // Fill usersDatas table with current users
   setTimeout(async () => {
     try {
@@ -56,7 +79,7 @@
       const responseJson = await responseData.json()
       usersDatas.value = responseJson
     } catch (err) {
-      console.error(`Error fetching "news" table! (Err: ${err})`)
+      console.error(`Error fetching "users" table! (Err: ${err})`)
       throw new Error('Internal server error')
     }
   }, 400)
@@ -104,7 +127,7 @@
     }
 
     .ctable {
-      padding: 10px;
+      padding: 5px 10px;
       border-radius: 10px;
       background-color: rgb(40, 40, 40);
 
@@ -112,7 +135,9 @@
         width: 100%;
         border-style: hidden;
         text-align: center;
-        border-spacing: 0px 5px;
+        border-spacing: 0px 10px;
+
+        font-size: 0.8rem;
 
         th, td {
           padding: 5px 10px;
@@ -123,6 +148,7 @@
           color: black;
 
           th:first-child {
+            text-align: left;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
           }

@@ -53,6 +53,18 @@ expressApp.get('/API/users', (req, res) => {
   });
 });
 
+expressApp.get('/API/getUserData/:ID', async (req, res) => {
+  const requestedUserID = req.params.ID;
+
+  try {
+    const userObject = await getUserProfileData(requestedUserID);
+    return res.status(200).json({ message: 'Sikeres adat lekérés!', data: userObject });
+  } catch (error) {
+    console.error('Error getting data from user:', error);
+    return res.status(500).json({ error: 'Rendszer hiba történt!' });
+  }
+});
+
 // POST Endpoints
 expressApp.post('/API/news/:ID', (req, res) => {
   const updateBody = req.body;
@@ -141,16 +153,16 @@ expressApp.post('/API/registerUser', async (req, res) => {
   }
 });
 
-expressApp.post('/API/getUserData/:ID', async (req, res) => {
-  const requestUserID = req.params.ID;
+expressApp.post('/API/user_delete/:ID', (req, res) => {
+  const requestedUserID = req.params.ID;
 
-  try {
-    const userObject = await getUserProfileData(requestUserID);
-    return res.status(200).json({ message: 'Sikeres adat lekérés!', data: userObject });
-  } catch (error) {
-    console.error('Error getting data from user:', error);
-    return res.status(500).json({ error: 'Rendszer hiba történt!' });
-  }
+  mysqlPool.query(`DELETE FROM accounts WHERE accID = '${requestedUserID}'`, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+    res.status(200).json(results);
+  });
 });
 
 // expressApp.post('/API/uploadAvatar', async (req, res) => {

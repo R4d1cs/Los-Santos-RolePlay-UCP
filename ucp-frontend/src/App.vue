@@ -30,7 +30,7 @@
 
     try {
       const responseData = await fetch(`${serverURL}/getUserData/${AccountStore.getLoggedUser.accountData.accID}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         }
@@ -104,6 +104,26 @@
       border-radius: 3px;
 
       background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .editBtn {
+      background-color: rgb(236, 195, 30) !important;
+    }
+
+    .saveBtn {
+      background-color: rgb(47, 188, 108) !important;
+    }
+
+    .deleteBtn {
+      background-color: rgb(188, 47, 47) !important;
+    }
+
+    .editBtn, .saveBtn, .deleteBtn {
+      padding: 5px 7px !important;
+
+      position: relative;
+
+      color: white !important;
     }
 
     /* Text Colors */

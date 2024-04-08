@@ -28,7 +28,6 @@
   const signOut = () => {
     AccountStore.logoutUser()
     routerApp.push('/news')
-    location.reload()
   }
 </script>
 

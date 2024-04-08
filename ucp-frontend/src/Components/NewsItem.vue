@@ -103,26 +103,6 @@
 
         background-color: white;
       }
-
-      .editBtn {
-        background-color: rgb(236, 195, 30) !important;
-      }
-
-      .saveBtn {
-        background-color: rgb(47, 188, 108) !important;
-      }
-
-      .deleteBtn {
-        background-color: rgb(188, 47, 47) !important;
-      }
-
-      .editBtn, .saveBtn, .deleteBtn {
-        padding: 5px 7px !important;
-
-        position: relative;
-
-        color: white !important;
-      }
     }
 
     .news-title {
