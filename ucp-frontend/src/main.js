@@ -19,6 +19,7 @@ import RegisterComponent from '@/Components/Register.vue';
 // Variables
 const webPrefix = 'Los Santos RolePlay';
 const serverURL = 'http://localhost:3000/API';
+const serverUploadsPath = 'http://localhost:3000/uploads';
 
 // URL routes
 const routes = [
@@ -48,4 +49,4 @@ app
   .use(pinia)
   .mount('#app');
 
-export { serverURL };
+export { serverURL, serverUploadsPath };

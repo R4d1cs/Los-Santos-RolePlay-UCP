@@ -4,14 +4,30 @@ const cors = require('cors');
 const mysql = require('mysql');
 const dotEnv = require('dotenv').config();
 const argon2 = require('argon2');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 // Modules Declarations
 const expressApp = express();
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/') // A képfájlok mentésének mappája
+  },
+  filename: function (req, file, cb) {
+    // A képfájl nevének generálása (pl. egyedi id vagy eredeti fájlnév)
+    cb(null, Date.now() + path.extname(file.originalname)); 
+  }
+});
+
 // Middleware
+const upload = multer({ storage: storage });
+
 expressApp.use(express.urlencoded({ extended: true }));
 expressApp.use(cors());
 expressApp.use(express.json());
+expressApp.use('/uploads', express.static('uploads'))
 
 // MYSQL Pool create with connection attributes
 const mysqlPool = mysql.createPool({
@@ -165,13 +181,43 @@ expressApp.post('/API/user_delete/:ID', (req, res) => {
   });
 });
 
-// expressApp.post('/API/uploadAvatar', async (req, res) => {
-//   const file = req.body;
+expressApp.post('/API/uploadProfilePicture/:ID', upload.single('file'), (req, res) => {
+  const requestedUserID = req.params.ID
+  const requestedPrevProfilePic = req.body.prefFile
 
-//   console.log(req)
+  if (requestedPrevProfilePic != '') {
+    fs.unlink(__dirname + '/uploads/' + requestedPrevProfilePic, (err) => {
+      if (err) throw err;
+    });  
+  }
 
-//   return file
-// });
+  mysqlPool.query(`UPDATE accounts SET avatar = '${req.file.filename}' WHERE accID = ${requestedUserID}`, async (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    return res.status(200).json({ message: 'Sikeres avatár feltöltés!', data: req.file.filename });
+  });
+});
+
+expressApp.post('/API/user_profile_delete/:ID/:imageName', (req, res) => {
+  const requestedUserID = req.params.ID
+  const requestedImageName = req.params.imageName
+
+  mysqlPool.query(`UPDATE accounts SET avatar = '' WHERE accID = ${requestedUserID}`, async (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    fs.unlink(__dirname + '/uploads/' + requestedImageName, (err) => {
+      if (err) throw err;
+      
+      return res.status(200).json({ message: 'Sikeresen kitörölted az avatárod!', data: results });
+    });
+  });
+});
 
 // Helper Functions
 async function getUserProfileData(accID) {
@@ -188,6 +234,7 @@ async function getUserProfileData(accID) {
             username: accountResults[0].username,
             email: accountResults[0].email,
             role: accountResults[0].role,
+            avatar: accountResults[0].avatar,
             updatedAt: accountResults[0].updatedAt,
             createdAt: accountResults[0].createdAt
           },

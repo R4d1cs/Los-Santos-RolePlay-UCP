@@ -16,9 +16,9 @@
     </div>
     <div class="cards_item" v-if="AccountStore.getLoggedUser.charData" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
       <br>
-      <!-- <form id="avatarUploadForm" hidden><input type="file" accept="image/*" id="avatar" @change="uploadAvatar"></form>
-      <img src="@/Assets/tesztProfileKép.png" class="charPicture" @click="triggerFileUpload"> -->
-      <img src="@/Assets/tesztProfileKép.png" class="charPicture">
+      <input type="file" accept="image/*" id="profilePicture" @change="uploadProfilePicture" hidden>
+      <img :src="`${serverUploadsPath}/${AccountStore.getLoggedUser.accountData.avatar != '' ? AccountStore.getLoggedUser.accountData.avatar : 'noPic.png'}`" class="charPicture" @click="triggerFileUpload">
+      <input type="button" @click="deleteProfileUser()" class="deleteBtn" value="Profilkép törlése" v-if="AccountStore.getLoggedUser.accountData.avatar != ''">
       <h4>Karakter adatok:</h4>
       <div class="cards_details">
         <div class="cards_title">{{ AccountStore.getLoggedUser.charData.charName || 'Nincs adat...' }}</div>
@@ -37,33 +37,55 @@
 
 <script setup>
   // Modules Imports
- // import { serverURL } from '@/main'
+  import { serverURL, serverUploadsPath } from '@/main'
   import { useAccountStore } from '@/Stores/AccountStore.js'
   import { formatDate, formatCurrency, formatPlaytime } from '@/Utitilites/formatFuncs'
 
   // Declarations
   const AccountStore = useAccountStore()
 
-  // // Functions
-  // const triggerFileUpload = () => {
-  //   document.getElementById('avatar').click()
-  // }
+  // Functions
+  const triggerFileUpload = () => {
+    document.getElementById('profilePicture').click()
+  }
 
-  // const uploadAvatar = () => {
-  //   const form = new FormData(document.getElementById('avatarUploadForm'))
+  const uploadProfilePicture = async () => {
+    const input = document.getElementById('profilePicture');
+    const file = input.files[0];
 
-  //   console.log(form)
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('prefFile', AccountStore.getLoggedUser.accountData.avatar);
 
-  //   fetch(`${serverURL}/uploadAvatar`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': false
-  //     },
-  //     body: form
-  //   }).then(data => {
-  //     console.log(data)
-  //   })
-  // }
+      try {
+        const responseData = await fetch(`${serverURL}/uploadProfilePicture/${AccountStore.getLoggedUser.accountData.accID}`, {
+          method: 'POST',
+          body: formData
+        })
+        const responseJSON = await responseData.json()
+        AccountStore.getLoggedUser.accountData.avatar = responseJSON.data
+      } catch (err) {
+        console.error(`Error fetching "accounts" table! (Err: ${err})`)
+        throw new Error('Internal server error')
+      }
+    }
+  };
+
+  const deleteProfileUser = async () => {
+    try {
+      const responseData = await fetch(`${serverURL}/user_profile_delete/${AccountStore.getLoggedUser.accountData.accID}/${AccountStore.getLoggedUser.accountData.avatar}`, {
+        method: 'POST'
+      })
+      const responseJSON = await responseData.json()
+      alert(responseJSON.message)
+      AccountStore.getLoggedUser.accountData.avatar = ''
+      location.reload()
+    } catch (err) {
+      console.error(`Error fetching "accounts" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -140,7 +162,9 @@
       .charPicture {
         width: 100%;
 
-        margin-bottom: 10px;
+        border-radius: 10px;
+
+        opacity: 0.8;
 
         &:hover {
           opacity: 0.5;
