@@ -1,6 +1,6 @@
 <template>
   <div class="usermanagment-wrapper" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
-    <h3 class="tsize-title">Felhasználók kezelése</h3>
+    <h3 class="tsize-title"><i class="pi pi-users"></i> Felhasználók kezelése</h3>
     <div class="loader-wrapper" v-if="usersDatas.length == 0">
       <div class="spinner"></div>
       <span>Felhasználók betöltése...</span>

@@ -18,6 +18,8 @@
   import { useAccountStore } from '@/Stores/AccountStore.js'
   import { serverURL } from '@/main'
 
+  import 'primeicons/primeicons.css'
+
   // Declarations
   const AccountStore = useAccountStore()
 
@@ -159,5 +161,10 @@
     /* Animations */
     .anim-hoverscale { transition: all .2s ease-in-out; }
     .anim-hoverscale:hover { transform: scale(1.1); }
+
+    /* Icon format */
+    .pi {
+      margin-right: 5px !important;
+    }
   }
 </style>

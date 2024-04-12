@@ -1,16 +1,16 @@
 <template>
   <div class="login-wrapper" v-if="!AccountStore.getLoggedUser">
-    <p class="tsize-title tformat-lightbold">Bejelentkezés</p>
+    <p class="tsize-title tformat-lightbold"><i class="pi pi-user"></i>Bejelentkezés</p>
     <hr>
     <input type="text" placeholder="Felhasználónév" v-model="username">
     <input type="password" placeholder="Jelszó" v-model="password">
 
     <div class="linkButtons" v-if="$route.path == '/login'">
-      <router-link to="register" class="registerBtn tcolor-blue tformat-lightbold">Regisztrálni szeretnél? </router-link>
-      <router-link to="forgotdata" class="forgotdataBtn tcolor-blue tformat-lightbold">Elfelejtett adatok?</router-link>
+      <router-link to="register" class="registerBtn tcolor-blue tformat-lightbold"><i class="pi pi-user-plus"></i>Regisztrálni szeretnél? </router-link>
+      <router-link to="forgotdata" class="forgotdataBtn tcolor-blue tformat-lightbold"><i class="pi pi-inbox"></i>Elfelejtett adatok?</router-link>
     </div>
 
-    <input class="submitBtn" type="button" value="Bejelentkezés" @click="submitLogin">
+    <input class="submitBtn" type="button" value="Bejelentkezés" @click="submitLogin" :v-model="`xd`">
   </div>
 </template>
 

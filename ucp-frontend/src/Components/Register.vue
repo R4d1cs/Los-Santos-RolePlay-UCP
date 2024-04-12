@@ -1,13 +1,13 @@
 <template>
   <div class="register-wrapper">
-    <p class="tsize-title tformat-lightbold">Regisztráció</p>
+    <p class="tsize-title tformat-lightbold"><i class="pi pi-user-plus"></i>Regisztráció</p>
     <hr>
     <input type="text" placeholder="Felhasználónév" v-model="username">
     <input type="password" placeholder="Jelszó" v-model="password">
     <input type="password" placeholder="Jelszó mégegyszer" v-model="confirmPassword">
     <input type="email" placeholder="E-mail cím" v-model="email">
 
-    <router-link to="login" class="loginBtn tcolor-blue tformat-lightbold">Bejelentkezni szeretnél? </router-link>
+    <router-link to="login" class="loginBtn tcolor-blue tformat-lightbold"><i class="pi pi-sign-in"></i>Bejelentkezni szeretnél? </router-link>
 
     <input class="submitBtn" type="button" value="Regisztráció" @click="submitRegistration">
   </div>

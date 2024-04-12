@@ -1,6 +1,6 @@
 <template>
   <div class="news-wrapper">
-    <h3>Hírek <input type="button" @click="toggleCreatePanel(true)" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'"></h3>
+    <h3><i class="pi pi-tags"></i><font style="margin-right: auto;">Hírek</font> <input type="button" @click="toggleCreatePanel(true)" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'"></h3>
     <div class="loader-wrapper" v-if="newsDatas.length == 0">
       <div class="spinner"></div>
       <span>Hírek betöltése...</span>
@@ -29,7 +29,7 @@
     <ProfileComponent style="width: 100%;" />
 
     <div class="cards_item">
-      <div class="cards_title">Minimum rendszerkövetelmények:</div>
+      <div class="cards_title"><i class="pi pi-cog"></i>Minimum rendszerkövetelmények:</div>
       <ul class="cards_context">
         <li>Operációs rendszer: Windows 10</li>
         <li>Processzor: Intel Core 2 Q6600 @ 2.40GHz / AMD Phenom 9850 @ 2.5GHz</li>
@@ -39,7 +39,7 @@
       </ul>
     </div>
     <div class="cards_item">
-      <div class="cards_title">Ajánlott rendszerkövetelmények:</div>
+      <div class="cards_title"><i class="pi pi-cog"></i>Ajánlott rendszerkövetelmények:</div>
       <ul class="cards_context">
         <li>Operációs rendszer: Windows 10, Windows 11</li>
         <li>Processzor: Intel Core i5 3470 @ 3.2GHz / AMD X8 FX-8350 @ 4GHz</li>
@@ -118,7 +118,6 @@
   .news-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-self: flex-start;
 
     width: 850px;
@@ -210,7 +209,6 @@
     h3 {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
 
       .createBtn {
         padding: 5px 7px !important;
@@ -277,7 +275,6 @@
 
       .cards_title {
         display: flex;
-        gap: 10px;
 
         font-size: 0.9rem;
       }

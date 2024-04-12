@@ -1,6 +1,6 @@
 <template>
   <div class="rules-wrapper" v-if="AccountStore.getLoggedUser">
-    <h3 class="tsize-title">Szabályzatok</h3>
+    <h3 class="tsize-title"><i class="pi pi-book"></i> Szabályzatok</h3>
     <details>
       <summary>Szerver szabályzat leírása</summary>
       <hr>

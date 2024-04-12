@@ -5,13 +5,13 @@
     <hr class="header-line" v-if="AccountStore.getLoggedUser">
 
     <ul class="header-links">
-      <router-link to="rules" v-if="AccountStore.getLoggedUser" class="link-item">Szabályzatok</router-link>
-      <router-link to="premiumshop" v-if="AccountStore.getLoggedUser" class="link-item tcolor-lightblue">Prémium Bolt</router-link>
-      <router-link to="users" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'" class="link-item">Felhasználók kezelése</router-link>
-      <router-link to="discord" class="link-item tcolor-blue">Csatlakozás</router-link>
-      <router-link :to="AccountStore.getLoggedUser ?? 'login'" class="link-item">{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</router-link>
+      <router-link to="rules" v-if="AccountStore.getLoggedUser" class="link-item"><i class="pi pi-book"></i>Szabályzatok</router-link>
+      <router-link to="premiumshop" v-if="AccountStore.getLoggedUser" class="link-item tcolor-lightblue"><i class="pi pi-shop"></i>Prémium Bolt</router-link>
+      <router-link to="users" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'" class="link-item"><i class="pi pi-users"></i>Felhasználók kezelése</router-link>
+      <router-link to="discord" class="link-item tcolor-blue"><i class="pi pi-discord"></i>Csatlakozás</router-link>
+      <router-link :to="AccountStore.getLoggedUser ?? 'login'" class="link-item"><i class="pi pi-user"></i>{{ AccountStore.getLoggedUser ? AccountStore.getLoggedUser.accountData.username + ' (' + AccountStore.getUserGroupName(AccountStore.getLoggedUser.accountData.role) + ')' : 'Bejelentkezés' }}</router-link>
 
-      <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="signOutBtn anim-hoverscale">Kilépés -></h6>
+      <h6 v-if="AccountStore.getLoggedUser" @click="signOut" class="signOutBtn anim-hoverscale"><i class="pi pi-sign-out"></i> Kilépés</h6>
     </ul>
   </div>
 </template>
@@ -106,8 +106,7 @@
         border: 1.5px solid #ffc078b1;
         border-radius: 3px;
 
-        padding: 2px;
-        padding-left: 7px;
+        padding: 2px 6px;
 
         background-color: rgb(255, 192, 120);
 

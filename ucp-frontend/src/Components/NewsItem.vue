@@ -1,7 +1,7 @@
 <template>
   <div class="news-item">
     <div class="news-date">
-      <span class="value" v-if="!editable">{{ date || 'Nincs adat...' }}</span>
+      <span class="value" v-if="!editable" v-html="`<i class='pi pi-clock'></div> ` + date || 'Nincs adat...'"></span>
       <input type="date" v-model="date" v-if="editable" class="value">
 
       <input type="button" @click="toggleEditMode()" :class="!editable ? 'editBtn' : 'saveBtn'" :value="editable ? 'Mentés' : 'Szerkesztés'" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'">
