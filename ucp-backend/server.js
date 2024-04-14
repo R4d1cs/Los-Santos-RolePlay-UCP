@@ -234,7 +234,7 @@ async function getUserProfileData(accID) {
             username: accountResults[0].username,
             email: accountResults[0].email,
             role: accountResults[0].role,
-            avatar: accountResults[0].avatar,
+            avatar: accountResults[0].avatar ?? '',
             updatedAt: accountResults[0].updatedAt,
             createdAt: accountResults[0].createdAt
           },
