@@ -46,7 +46,7 @@
   }, 3000)
 </script>
 
-<style>
+<style lang="scss">
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
   * {
@@ -94,6 +94,68 @@
       min-height: 100vh;
 
       padding: 20px;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) { /* Lower screen size than 1280px */
+      .router_view-wrapper {
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .news-wrapper {
+          width: 100%;
+        }
+
+        .news_rside-wrapper {
+          flex-direction: row;
+
+          width: 100%;
+        }
+
+        .rules-wrapper, .usermanagment-wrapper, .discord_connecting-wrapper {
+          width: 100%;
+          height: 100%;
+        }
+
+        .page_not_found-wrapper {
+          margin: auto;
+        }
+
+        .profile-wrapper {
+          width: 600px !important;
+        }
+
+        .discord_connecting-wrapper {
+          height: 100vh;
+        }
+      }
+    }
+
+    @media (min-width: 0px) and (max-width: 768px) { /* Lower screen size than 1280px */
+      .router_view-wrapper {
+        flex-direction: column;
+        justify-content: flex-start;
+
+        .news-wrapper {
+          width: 100%;
+        }
+
+        .news_rside-wrapper, .login-wrapper, .register-wrapper {
+          width: 100%;
+        }
+
+        .rules-wrapper, .usermanagment-wrapper, .discord_connecting-wrapper {
+          width: 100%;
+          height: 100%;
+        }
+
+        .page_not_found-wrapper {
+          margin: auto;
+        }
+
+        .discord_connecting-wrapper {
+          height: 100vh;
+        }
+      }
     }
 
     /* Utitlites Templates */

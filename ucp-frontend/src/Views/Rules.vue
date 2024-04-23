@@ -119,9 +119,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-self: flex-start;
-
-    margin: 0 5%;
+    align-self: start;
 
     width: 1200px;
 

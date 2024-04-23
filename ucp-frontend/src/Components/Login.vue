@@ -57,6 +57,8 @@
 
     width: 350px;
 
+    margin: 0 auto;
+
     color: white;
 
     padding: 10px;

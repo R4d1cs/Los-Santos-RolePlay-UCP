@@ -92,8 +92,6 @@
     gap: 10px;
     align-self: flex-start;
 
-    margin: 0 5%;
-
     width: 1200px;
 
     color: white;
