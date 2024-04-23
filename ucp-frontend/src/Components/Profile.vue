@@ -13,12 +13,13 @@
           <li><span class="title">Regisztrálva </span><span class="value">{{ formatDate(AccountStore.getLoggedUser.accountData.createdAt) || 'Nincs adat...' }}</span></li>
         </ul>
       </div>
-    </div>
-    <div class="cards_item" v-if="AccountStore.getLoggedUser.charData" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
       <br>
       <input type="file" accept="image/*" id="profilePicture" @change="uploadProfilePicture" hidden>
       <img :src="`${serverUploadsPath}/${AccountStore.getLoggedUser.accountData.avatar != '' ? AccountStore.getLoggedUser.accountData.avatar : 'noPic.png'}`" class="charPicture" @click="triggerFileUpload">
       <input type="button" @click="deleteProfileUser()" class="deleteBtn" value="Profilkép törlése" v-if="AccountStore.getLoggedUser.accountData.avatar != ''">
+    </div>
+    <div class="cards_item" v-if="AccountStore.getLoggedUser.charData" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+      <br>
       <h4>Karakter adatok:</h4>
       <div class="cards_details">
         <div class="cards_title">{{ AccountStore.getLoggedUser.charData.charName || 'Nincs adat...' }}</div>

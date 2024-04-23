@@ -3,6 +3,8 @@
     <router-link to="news" class="server_logo-wrapper anim-hoverscale" />
 
     <hr class="header-line" v-if="AccountStore.getLoggedUser">
+    
+    <h6 @click="toggleDropdownMenu()" class="dropdownBtn anim-hoverscale"><i class="pi pi-align-right"></i></h6>
 
     <ul class="header-links">
       <router-link to="rules" v-if="AccountStore.getLoggedUser" class="link-item"><i class="pi pi-book"></i>Szabályzatok</router-link>
@@ -28,6 +30,11 @@
   const signOut = () => {
     AccountStore.logoutUser()
     routerApp.push('/news')
+  }
+
+  const toggleDropdownMenu = () => {
+    const headerLinks = document.querySelector('.header-links');
+    headerLinks.style.display = headerLinks.style.display === 'none' ? 'flex' : 'none';
   }
 </script>
 
@@ -81,7 +88,7 @@
       gap: 15px;
 
       position: absolute;
-      right: 100px;
+      right: 40px;
       top: 15px;
 
       list-style: none;
@@ -112,6 +119,21 @@
 
         cursor: pointer;
       }
+    }
+
+    .dropdownBtn {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 15px;
+
+      text-align: center;
+      font-size: 1rem;
+      font-weight: normal;
+
+      padding: 2px 6px;
+
+      cursor: pointer;
     }
   }
 </style>

@@ -156,6 +156,27 @@
           height: 100vh;
         }
       }
+
+      .header-wrapper {
+        height: 100%;
+
+        .header-links {
+          display: none;
+          position: relative;
+          top: 0;
+          left: 0;
+          margin: 100px auto 20px auto;
+
+          flex-direction: column;
+
+          width: 100%;
+          height: 100%;
+        }
+
+        .dropdownBtn {
+          display: block;
+        }
+      }
     }
 
     /* Utitlites Templates */
