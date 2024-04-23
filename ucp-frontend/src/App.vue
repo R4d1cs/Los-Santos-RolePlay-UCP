@@ -64,6 +64,8 @@
   /* Custom Scrollbar */
   ::-webkit-scrollbar {
     width: 5px;
+
+    height: 5px;
   }
     
   ::-webkit-scrollbar-track {
@@ -248,6 +250,16 @@
     /* Icon format */
     .pi {
       margin-right: 5px !important;
+    }
+
+    /* Custom Alings */
+    .row {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+
+      align-items: center;
+      justify-content: center;
     }
   }
 </style>

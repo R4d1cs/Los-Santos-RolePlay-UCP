@@ -129,6 +129,8 @@
       border-radius: 10px;
       background-color: rgb(40, 40, 40);
 
+      overflow-x: scroll; /* Horizontális görgetés megjelenítése kis képernyőn */
+
       table {
         width: 100%;
         border-style: hidden;
