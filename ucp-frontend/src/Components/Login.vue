@@ -10,7 +10,7 @@
       <router-link to="forgotdata" class="forgotdataBtn tcolor-blue tformat-lightbold"><i class="pi pi-inbox"></i>Elfelejtett adatok?</router-link>
     </div>
 
-    <input class="submitBtn" type="button" value="Bejelentkezés" @click="submitLogin" :v-model="`xd`">
+    <input class="submitBtn" type="button" value="Bejelentkezés" @click="submitLogin">
   </div>
 </template>
 

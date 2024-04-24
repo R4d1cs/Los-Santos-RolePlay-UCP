@@ -15,6 +15,7 @@ import UsersView from '@/Views/UserManagment.vue';
 
 import LoginComponent from '@/Components/Login.vue';
 import RegisterComponent from '@/Components/Register.vue';
+import ForgotDataComponent from '@/Components/ForgotData.vue';
 
 // Variables
 const webPrefix = 'Los Santos RolePlay';
@@ -29,6 +30,7 @@ const routes = [
   { path: '/users', component: UsersView, meta: { tabTitle: 'Felhasználók kezelése' } },
   { path: '/login', component: LoginComponent, meta: { tabTitle: 'Bejelentkezés' } },
   { path: '/register', component: RegisterComponent, meta: { tabTitle: 'Regisztráció' } },
+  { path: '/forgotdata', component: ForgotDataComponent, meta: { tabTitle: 'Elfelejtett adatok' } },
   { path: '/:pathMatch(.*)*', component: PageNotFoundView, meta: { tabTitle: 'Karbantartás alatt!' } }
 ];
 

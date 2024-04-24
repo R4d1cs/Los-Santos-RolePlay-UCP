@@ -149,7 +149,7 @@
           }
         }
 
-        .news_rside-wrapper, .login-wrapper, .register-wrapper {
+        .news_rside-wrapper, .login-wrapper, .register-wrapper, .forgot_data-wrapper {
           width: 100%;
         }
 
