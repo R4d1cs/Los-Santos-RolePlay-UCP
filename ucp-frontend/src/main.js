@@ -18,8 +18,8 @@ import RegisterComponent from '@/Components/Register.vue';
 
 // Variables
 const webPrefix = 'Los Santos RolePlay';
-const serverURL = 'http://192.168.0.104:3000/API';
-const serverUploadsPath = 'http://192.168.0.104:3000/uploads';
+const serverURL = 'http://172.20.10.2:3000/API';
+const serverUploadsPath = 'http://172.20.10.2:3000/uploads';
 
 // URL routes
 const routes = [

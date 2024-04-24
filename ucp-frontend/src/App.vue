@@ -105,6 +105,10 @@
 
         .news-wrapper {
           width: 100%;
+
+          .loader-wrapper {
+            width: 100%;
+          }
         }
 
         .news_rside-wrapper {
@@ -139,6 +143,10 @@
 
         .news-wrapper {
           width: 100%;
+
+          .loader-wrapper {
+            width: 100%;
+          }
         }
 
         .news_rside-wrapper, .login-wrapper, .register-wrapper {

@@ -1,12 +1,12 @@
 <template>
   <div class="news-wrapper">
     <h3><i class="pi pi-tags"></i><p style="margin-right: auto;">Hírek</p> <input type="button" @click="toggleCreatePanel(true)" class="createBtn" value="Új hír létrehozása" v-if="AccountStore.getLoggedUser && AccountStore.getLoggedUser.accountData.role == 'admin'"></h3>
-    <div class="loader-wrapper" v-if="newsDatas.length == 0">
+    <div class="loader-wrapper" v-if="newsDatas.length == 0 && !showCreatePanel">
       <div class="spinner"></div>
       <span>Hírek betöltése...</span>
     </div>
 
-    <div class="news-items" v-if="newsDatas.length > 0">
+    <div class="news-items">
       <div class="news-item" v-if="showCreatePanel">
         <div class="news-date">
           <input type="date" v-model="date" class="value">
