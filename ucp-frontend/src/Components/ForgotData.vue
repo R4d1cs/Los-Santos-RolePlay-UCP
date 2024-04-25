@@ -15,12 +15,11 @@
 <script setup>
   // Modules Imports
   import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { serverURL } from '@/main'
   import { useAccountStore } from '@/Stores/AccountStore.js'
 
   // Declarations
   const AccountStore = useAccountStore()
-  const routerApp = useRouter()
   
   const email = ref('')
 
@@ -30,17 +29,16 @@
       return alert('Töltsd ki az e-mail mezőt az elküldéshez!')
     }
 
-    // await AccountStore.loginUser({ username: username.value, password: password.value }).then((serverResData) => {
-    //   alert(serverResData.message)
-
-    //   if (serverResData.data) {
-    //     AccountStore.setLoggedUser(serverResData.data)
-    //     routerApp.push('/news')
-
-    //     username.value = ''
-    //     password.value = ''
-    //   }
-    // })
+    try {
+      const responseData = await fetch(`${serverURL}/sendEmail/${email.value}`, {
+        method: 'POST'
+      })
+      const responseJSON = await responseData.json()
+      alert(responseJSON.message)
+    } catch (err) {
+      console.error(`Error fetching "accounts" table! (Err: ${err})`)
+      throw new Error('Internal server error')
+    }
   }
 </script>
 
