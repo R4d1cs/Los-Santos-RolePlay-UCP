@@ -19,8 +19,8 @@ import ForgotDataComponent from '@/Components/ForgotData.vue';
 
 // Variables
 const webPrefix = 'Los Santos RolePlay';
-const serverURL = 'http://172.20.10.2:3000/API';
-const serverUploadsPath = 'http://172.20.10.2:3000/uploads';
+const serverURL = 'http://localhost:3000/API';
+const serverUploadsPath = 'http://localhost:3000/uploads';
 
 // URL routes
 const routes = [
